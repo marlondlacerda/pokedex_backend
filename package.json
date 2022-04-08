@@ -4,7 +4,10 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/index.ts",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "test": "mocha -r ts-node/register src/tests/unit/**/*.test.ts --exit -t 60000",
+    "test:coverage": "nyc npm run test"
   },
   "keywords": [],
   "author": "",
