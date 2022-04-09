@@ -2,7 +2,7 @@ export interface ICopaBase extends ICopa {
   _id: string
 }
 
-export interface ICopa {
+export default interface ICopa {
   year: number
   hostCountry: string
   champions: string
