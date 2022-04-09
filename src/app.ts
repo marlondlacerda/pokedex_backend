@@ -1,16 +1,16 @@
 import express from 'express';
+import Connection from './models/config';
 // import routes from './routes';
-// import connection from './models/connection';
 
 class App {
   public express: express.Application;
 
-  // public connection: Promise<typeof import('mongoose')>;
+  public connection: Promise<typeof import('mongoose')>;
 
   constructor() {
     this.express = express();
     this.middlewares();
-    // this.connection = connection();
+    this.connection = Connection();
     // this.routes();
   }
 
