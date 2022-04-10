@@ -22,6 +22,10 @@ class HandlerError {
   ): Response {
     this.status = errorMap[err.name];
 
+    if(!this.status) {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
     return res.status(this.status).json({ error: err.message });
     _next();
   }
