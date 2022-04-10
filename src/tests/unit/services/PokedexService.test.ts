@@ -1,26 +1,26 @@
 import { expect } from "chai"
 import Sinon from "sinon"
 import PokedexModel from "../../../models"
-import PokeApi from "../mocks"
+import PokedexService from "../../../services"
+import pokeApi from "../mocks"
 
+describe('Pokedex Service', () => {
+  let pokedexService = new PokedexService()
 
-describe('Pokedex Model', () => {
-  let pokedexModel = new PokedexModel()
-
-  describe('Testing getAll PokedexModel', () => {
+  describe('Testing getAll Pokedex Service', () => {
     before(() => {
-      Sinon.stub(pokedexModel.model, 'find').resolves(PokeApi)
+      Sinon.stub(pokedexService.model, 'read').resolves(pokeApi)
     })
 
     after(() => {
-      Sinon.restore()
+      Sinon.restore();
     });
 
-    it('Returns all Pokemons with your status and type', async () => {
-      const result = await pokedexModel.read()
+    it('Returns all Worlds of Cup since from 1986 until 2018', async () => {
+      const result = await pokedexService.read();
 
       expect(result).to.be.an('array')
-      expect(result).to.have.lengthOf(PokeApi.length)
+      expect(result).to.have.lengthOf(pokeApi.length)
 
       expect(result[0]).to.have.property('nome')
       expect(result[0]).to.have.property('hp')
@@ -36,7 +36,7 @@ describe('Pokedex Model', () => {
       expect(result[0].habilidades[0]).to.have.property('habilidade2')
       expect(result[0]).to.have.property('img')
 
-      expect(result).to.deep.equal(PokeApi)
+      expect(result).to.deep.equal(pokeApi)
     })
   })
 })
