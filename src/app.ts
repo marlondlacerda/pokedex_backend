@@ -25,7 +25,7 @@ class App {
     this.app.use(accessControl);
   }
 
-  public startServer(port = 3000) {
+  public startServer(port = 3001) {
     Connection();
     const actualPort = process.env.PORT || port;
     return this.app.listen(

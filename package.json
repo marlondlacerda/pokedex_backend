@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "start": "npx tsc && node ./dist/src/index.js",
     "test": "mocha -r ts-node/register src/tests/unit/**/*.test.ts --exit -t 60000",
     "test:coverage": "nyc npm run test"
   },
