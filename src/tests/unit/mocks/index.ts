@@ -1,3 +1,3 @@
-import tournamentsDocument from './tournamentsDocument';
+import pokeApi from "./pokeApi"
 
-export default tournamentsDocument
+export default pokeApi;
