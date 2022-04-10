@@ -1,5 +1,5 @@
 import { Model as M, Document } from 'mongoose';
-import Model from '../interfaces/Repositories/Models';
+import { Model } from '../interfaces/Repositories';
 
 abstract class MongoModel<T> implements Model<T> {
   constructor(
