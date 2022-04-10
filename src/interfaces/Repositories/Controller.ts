@@ -1,21 +1,10 @@
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import createError from '../../utils';
 import Service from './Services';
-
-export type ResponseError = {
-  error: unknown;
-};
-
-enum ControllerErrors {
-  internal = 'Internal Server Error',
-  notFound = 'Object not found',
-  requiredId = 'Id is required',
-  badRequest = 'Bad request',
-}
 
 abstract class Controller<T> {
   abstract route: string;
-
-  protected errors = ControllerErrors;
 
   constructor(
     protected service: Service<T>,
@@ -27,7 +16,14 @@ abstract class Controller<T> {
   ): Promise<Response> => {
     const objs = await this.service.read();
 
-    return res.status(200).json(objs);
+    if (!objs) {
+      throw createError(
+        'internal',
+        'Oops! Something went wrong on our server. Please try again later.',
+      );
+    }
+
+    return res.status(StatusCodes.OK).json(objs);
   };
 }
 
