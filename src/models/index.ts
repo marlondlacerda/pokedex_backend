@@ -1,3 +1,3 @@
-import CopaModel from './CopaModel';
+import PokedexModel from './PokedexModel';
 
-export default CopaModel;
+export default PokedexModel;
