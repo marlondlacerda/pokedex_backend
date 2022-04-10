@@ -1,3 +1,2 @@
-import CopaSchema from './CopaSchema';
-
-export default CopaSchema;
+export { default as Copa } from './CopaSchema';
+export { default as CopaSchema } from './CopaSchema';
