@@ -1,11 +1,17 @@
+import CustomRouter from './routes/Router';
+import CopaController from './controllers/CopaController';
+
 import App from './app';
+import { Copa } from './schemas';
 
-require('dotenv/config');
+const server = new App();
 
-const app = new App().express;
+const copaController = new CopaController();
 
-const { PORT } = process.env;
+const copaRouter = new CustomRouter<Copa>();
 
-app.listen(PORT, () => {
-  console.log(`Ouvindo a porta ${PORT}`);
-});
+copaRouter.addRoute(copaController);
+
+server.addRouter(copaRouter.router);
+
+server.startServer();
