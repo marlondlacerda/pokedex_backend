@@ -1,0 +1,12 @@
+import { Model as M, Document } from 'mongoose';
+import Model from '../interfaces/Repositories/Models';
+
+abstract class MongoModel<T> implements Model<T> {
+  constructor(
+    protected model: M<T & Document>,
+  ) { }
+
+  read = async (): Promise<T[]> => this.model.find();
+}
+
+export default MongoModel;

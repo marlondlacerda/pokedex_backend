@@ -17,7 +17,7 @@ describe('Copa Model', () => {
     });
 
     it('Returns all Worlds of Cup since from 1986 until 2018', async () => {
-      const tournaments = await copaModel.getCopa()
+      const tournaments = await copaModel.read()
 
       expect(tournaments).to.be.an('array')
       expect(tournaments).to.have.lengthOf(tournamentsDocument.length)
