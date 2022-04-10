@@ -1,23 +1,24 @@
 import { expect } from "chai"
 import Sinon from "sinon"
 import CopaModel from "../../../models"
+import CopaService from "../../../services/CopaService"
 import tournamentsDocument from "../mocks"
 
-
-describe('Copa Model', () => {
+describe('Copa Service', () => {
+  let copaService = new CopaService()
   let copaModel = new CopaModel()
 
-  describe('Testing getAll CopaModel', () => {
+  describe('Testing getAll CopaService', () => {
     before(() => {
-      Sinon.stub(copaModel.model, 'find').resolves(tournamentsDocument)
+      Sinon.stub(copaService.model, 'read').resolves(tournamentsDocument)
     })
 
     after(() => {
-      Sinon.restore()
+      Sinon.restore();
     });
 
     it('Returns all Worlds of Cup since from 1986 until 2018', async () => {
-      const tournaments = await copaModel.read()
+      const tournaments = await copaService.read();
 
       expect(tournaments).to.be.an('array')
       expect(tournaments).to.have.lengthOf(tournamentsDocument.length)
