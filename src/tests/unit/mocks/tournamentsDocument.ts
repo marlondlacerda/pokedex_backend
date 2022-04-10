@@ -1,4 +1,6 @@
-export default [
+import { Copa } from "../../../schemas";
+
+const tournamentsDocument: Copa[] = [
   {
     year: 2018,
     hostCountry: "Russia",
@@ -93,27 +95,7 @@ export default [
     bestPlayer: "Romário",
     bestGoalkeeper: "Michel Preud'homme",
     bestYoungPlayer: "Marc Overmars",
-  },
-  {
-    year: 1990,
-    hostCountry: "Italy",
-    champions: "Germany",
-    runnerUp: "Argentina",
-    editionStrikers: [
-      "Salvatore Schillaci"
-    ],
-    bestPlayer: "Salvatore Schillaci",
-    bestYoungPlayer: "Robert Prosinecki",
-  },
-  {
-    year: 1986,
-    hostCountry: "Mexico",
-    champions: "Argentina",
-    runnerUp: "Germany",
-    editionStrikers: [
-      "Gary Lineker"
-    ],
-    bestPlayer: "Diego Maradona",
-    bestYoungPlayer: "Enzo Scifo",
-  },
-]
+  }
+];
+
+export default tournamentsDocument;
