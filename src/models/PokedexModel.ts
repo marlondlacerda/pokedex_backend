@@ -1,10 +1,12 @@
-import { Schema, model as createModel, Document } from 'mongoose';
+import mongoose, { Schema, model as createModel, Document } from 'mongoose';
 import { Pokedex } from '../schemas';
 import MongoModel from './MongoModel';
 
-interface CopaDocument extends Pokedex, Document {}
+mongoose.pluralize(null);
 
-const pokeSchema = new Schema<CopaDocument>({
+interface PokedexDocument extends Pokedex, Document {}
+
+const pokeSchema = new Schema<PokedexDocument>({
   nome: {
     type: String,
     required: true,

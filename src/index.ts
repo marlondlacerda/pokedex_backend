@@ -1,20 +1,20 @@
 import CustomRouter from './routes/Router';
-import CopaController from './controllers/CopaController';
 
 import App from './app';
-import { Copa } from './schemas';
+import { Pokedex } from './schemas';
 import HandlerError from './middlewares/errorHandlerMiddleware';
+import PokedexController from './controllers';
 
 const server = new App();
 
-const copaController = new CopaController();
+const pokedexController = new PokedexController();
 const handleError = new HandlerError();
 
-const copaRouter = new CustomRouter<Copa>();
+const pokedexRouter = new CustomRouter<Pokedex>();
 
-copaRouter.addRoute(copaController);
+pokedexRouter.addRoute(pokedexController);
 
-server.addRouter(copaRouter.router);
+server.addRouter(pokedexRouter.router);
 server.errorRouter(handleError);
 
 server.startServer();

@@ -49,5 +49,9 @@ const pokedexSchema = z.object({
 
 type Pokedex = z.infer<typeof pokedexSchema>;
 
+export interface PokedexWithID extends Pokedex {
+  id: number;
+}
+
 export default Pokedex;
 export { pokedexSchema };
