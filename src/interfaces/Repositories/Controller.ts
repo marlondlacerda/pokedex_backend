@@ -10,6 +10,11 @@ abstract class Controller<T> {
     protected service: Service<T>,
   ) { }
 
+  abstract create(
+    req: Request<T>,
+    res: Response<string>,
+  ): Promise<typeof res>;
+
   read = async (
     _req: Request,
     res: Response,

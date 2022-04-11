@@ -1,8 +1,9 @@
+import { Request, Response } from 'express';
 import { Controller } from '../interfaces/Repositories';
-import { Pokedex } from '../schemas';
+import { PokedexWithID } from '../schemas';
 import PokedexService from '../services';
 
-class PokedexController extends Controller<Pokedex> {
+class PokedexController extends Controller<PokedexWithID> {
   private $route: string;
 
   constructor(
@@ -14,6 +15,11 @@ class PokedexController extends Controller<Pokedex> {
   }
 
   get route() { return this.$route; }
+
+  create = async (
+    req: Request<PokedexWithID>,
+    res: Response<string>,
+  ): Promise<typeof res> => res.json(this.$route);
 }
 
 export default PokedexController;
