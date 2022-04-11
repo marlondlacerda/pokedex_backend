@@ -2,11 +2,12 @@
   "name": "mongodb-with-mongoose",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "start": "npx tsc && node ./dist/src/index.js",
+    "start": "node ./build/server.js",
     "test": "mocha -r ts-node/register src/tests/unit/**/*.test.ts --exit -t 60000",
     "test:coverage": "nyc npm run test"
   },
@@ -15,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3",
+    "dotenv": "^16.0.0",
     "express-async-errors": "^3.1.1",
     "http-status-codes": "^2.2.0",
     "mongoose": "^6.2.10",
@@ -33,7 +35,6 @@
     "@typescript-eslint/parser": "^5.18.0",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
-    "dotenv": "^16.0.0",
     "eslint": "^8.13.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",

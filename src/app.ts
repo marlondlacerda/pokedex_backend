@@ -3,6 +3,10 @@ import 'express-async-errors';
 import Connection from './models/config';
 import HandlerError from './middlewares/errorHandlerMiddleware';
 
+require('dotenv/config');
+
+const { PORT } = process.env;
+
 class App {
   private app: express.Application;
 
@@ -27,7 +31,7 @@ class App {
 
   public startServer(port = 3001) {
     Connection();
-    const actualPort = process.env.PORT || port;
+    const actualPort = PORT || port;
     return this.app.listen(
       actualPort,
       () => console.log('Estamos online na porta: ', actualPort),
