@@ -1,6 +1,6 @@
-import { Service } from '../interfaces/Repositories';
-import PokedexModel from '../models';
+import { PokedexModel } from '../models';
 import { Pokedex } from '../schemas';
+import Service from './Service';
 
 class PokedexService extends Service<Pokedex> {
   constructor(
