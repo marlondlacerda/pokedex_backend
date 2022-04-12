@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import createError from '../../utils';
-import Service from './Services';
+import createError from '../utils';
+import { Service } from '../services';
 
 abstract class Controller<T> {
   abstract route: string;
 
   constructor(
     protected service: Service<T>,
-  ) { }
+  ) {}
 
   abstract create(
     req: Request<T>,
