@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { Controller } from '../interfaces/Repositories';
+import PokedexValidation from '../validations';
+import { Controller } from '../controllers';
 
 class CustomRouter<T> {
   public router: Router;
@@ -10,9 +11,16 @@ class CustomRouter<T> {
 
   public addRoute(
     controller: Controller<T>,
+    validation: PokedexValidation,
     route: string = controller.route,
   ) {
     this.router.get(route, controller.read);
+
+    this.router.post(
+      route, 
+      validation.bodyPokedex, 
+      controller.create,
+    );
   }
 }
 
