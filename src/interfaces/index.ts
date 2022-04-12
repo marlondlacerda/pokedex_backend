@@ -1,2 +1,2 @@
-export { default as ICopa } from './ICopa';
-export { default as ICopaBase } from './ICopa';
+export { default as IPokedex } from './IPokedex';
+export { default as Model } from './Models';

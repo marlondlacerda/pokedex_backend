@@ -7,54 +7,61 @@ mongoose.pluralize(null);
 interface PokedexDocument extends Pokedex, Document {}
 
 const pokeSchema = new Schema<PokedexDocument>({
-  nome: {
+  name: {
     type: String,
     required: true,
   },
-  tipo: {
+  type: {
     type: String,
     required: true,
   },
-  hp: {
-    type: Number,
-    required: true,
-  },
-  ataque: {
-    type: Number,
-    required: true,
-  },
-  defesa: {
-    type: Number,
-    required: true,
-  },
-  velocidade: {
-    type: Number,
-    required: true,
-  },
-  total: {
-    type: Number,
-    required: true,
-  },
-  habilidades: {
-    type: [{
-      habilidade1: {
-        type: String,
-        required: true,
-      },
-      habilidade2: {
-        type: String,
-        required: true,
-      },
-    }],
-    required: true,
-  },
-  img: {
+  height: {
     type: String,
     required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  baseStats: {
+    hp: {
+      type: Number,
+      require: true,
+    },
+    atk: {
+      type: Number,
+      require: true,
+    },
+    def: {
+      type: Number,
+      require: true,
+    },
+    satk: {
+      type: Number,
+      require: true,
+    },
+    sdef: {
+      type: Number,
+      require: true,
+    },
+    spd: {
+      type: Number,
+      require: true,
+    },
+  },
+  moves: {
+    ability1: {
+      type: String,
+      require: true,
+    },
+    ability2: {
+      type: String,
+      require: true,
+    },
   },
 });
 
-class PokedexModel extends MongoModel<Pokedex> {
+export class PokedexModel extends MongoModel<Pokedex> {
   constructor(
     public model = createModel('pokedex', pokeSchema),
   ) {
