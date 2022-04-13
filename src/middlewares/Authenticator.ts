@@ -20,7 +20,7 @@ class Authenticator {
     this.secret = 'secret';
   }
 
-  public generateToken = (payload: Payload) => sign(payload, this.secret, {
+  readonly generateToken = (payload: Payload) => sign(payload, this.secret, {
     algorithm: 'HS256',
     expiresIn: '5d',
   });
@@ -28,7 +28,7 @@ class Authenticator {
   private verifyToken = (token: string): JwtPayload => 
     verify(token, this.secret, { algorithms: ['HS256'] }) as JwtPayload;
 
-  public authMiddleware = async (
+  readonly authMiddleware = async (
     req: Request<unknown>, 
     res: Response,
     next: NextFunction,

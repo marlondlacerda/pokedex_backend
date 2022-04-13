@@ -87,7 +87,7 @@ const pokeSchema = new Schema<PokedexDocument>({
 
 export class PokedexModel extends MongoModel<Pokedex> {
   constructor(
-    public model = createModel('pokedex', pokeSchema),
+    readonly model = createModel('pokedex', pokeSchema),
   ) {
     super(model);
   }

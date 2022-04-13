@@ -1,6 +1,6 @@
 interface Model<T> {
-  read(): Promise<T | T[]>;
   create(obj: T): Promise<T>,
+  read(): Promise<T | T[]>;
 }
 
 export default Model;
