@@ -10,7 +10,7 @@ abstract class Service<T> {
     protected model: Model<T>,
   ) { }
 
-  public async read(): Promise<T[]> {
+  public async read(): Promise<T | T[] | ServiceError> {
     return this.model.read();
   }
 
