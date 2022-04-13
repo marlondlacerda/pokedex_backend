@@ -4,7 +4,7 @@ import { ZodError } from 'zod';
 
 class ZodHandlerError {
   private statusCode: number;
-  
+
   public zodHandler(
     err: ZodError,
     req: Request,
