@@ -7,28 +7,34 @@ abstract class Controller<T> {
   abstract route: string;
 
   constructor(
-    protected service: Service<T>,
+    readonly service: Service<T>,
   ) {}
 
-  abstract create(
+  public create = async (
     req: Request<T>,
-    res: Response<string>,
-  ): Promise<typeof res>;
+    res: Response,
+  ): Promise<typeof res> => {
+    const { body } = req;
 
-  read = async (
+    const result = await this.service.create(body);
+
+    return res.status(StatusCodes.CREATED).json({ result });
+  };
+
+  public read = async (
     _req: Request,
     res: Response,
   ): Promise<Response> => {
-    const objs = await this.service.read();
+    const result = await this.service.read();
 
-    if (!objs) {
+    if (!result) {
       throw createError(
         'internal',
         'Oops! Something went wrong on our server. Please try again later.',
       );
     }
 
-    return res.status(StatusCodes.OK).json(objs);
+    return res.status(StatusCodes.OK).json(result);
   };
 }
 

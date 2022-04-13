@@ -7,6 +7,10 @@ mongoose.pluralize(null);
 interface PokedexDocument extends Pokedex, Document {}
 
 const pokeSchema = new Schema<PokedexDocument>({
+  _id: {
+    type: Number,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -83,6 +87,9 @@ const pokeSchema = new Schema<PokedexDocument>({
     type: String,
     required: true,
   },
+}, {
+  versionKey: false,
+  _id: false,
 });
 
 export class PokedexModel extends MongoModel<Pokedex> {

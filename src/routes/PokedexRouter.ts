@@ -18,12 +18,12 @@ class PokedexRouter<T> {
   ) {
     this.router.get(route, controller.read);
 
-    // this.router.post(
-    //   route, 
-    //   authenticator.authMiddleware,
-    //   validation.bodyPokedex, 
-    //   controller.create,
-    // );
+    this.router.post(
+      route, 
+      authenticator.authMiddleware,
+      validation.bodyPokedex, 
+      controller.create,
+    );
   }
 }
 
