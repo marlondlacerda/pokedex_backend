@@ -41,11 +41,11 @@ const pokedexSchema = z.object({
       required_error: 'Moves are required',
     }),
 
-  image1: stringSchema('Image 1', 3, 10).url({
+  image1: stringSchema('Image 1', 3, 200).url({
     message: 'Image 1 must be a valid URL',
   }),
 
-  image2: stringSchema('Image 2', 3, 10).url({
+  image2: stringSchema('Image 2', 3, 200).url({
     message: 'Image 2 must be a valid URL',
   }),
 });
