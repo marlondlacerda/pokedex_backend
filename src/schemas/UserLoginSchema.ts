@@ -1,12 +1,12 @@
 import { z } from 'zod';
 import { stringSchema } from '../utils/createSchema';
 
-const userSchema = z.object({
+const UserLoginSchema = z.object({
   username: stringSchema('Username', 3, 10),
   password: stringSchema('Password', 3, 10),
 });
 
-type UserLogin = z.infer<typeof userSchema>;
+type UserLogin = z.infer<typeof UserLoginSchema>;
 
 export default UserLogin;
-export { userSchema };
+export { UserLoginSchema };
