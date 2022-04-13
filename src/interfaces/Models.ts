@@ -1,5 +1,5 @@
 interface Model<T> {
-  read(): Promise<T[]>,
+  read(): Promise<T | T[]>;
   create(obj: T): Promise<T>,
 }
 

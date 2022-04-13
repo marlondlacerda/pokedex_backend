@@ -17,12 +17,12 @@ const userLoginSchema = new Schema<UserLoginDocument>({
   },
 });
 
-export class UserLoginModel extends MongoModel<UserLogin> {
+export class LoginModel extends MongoModel<UserLogin> {
   constructor(
-    public model = createModel('pokedex', userLoginSchema),
+    public model = createModel('login', userLoginSchema),
   ) {
     super(model);
   }
 }
 
-export default UserLoginModel;
+export default LoginModel;
