@@ -20,10 +20,10 @@ class PokedexController extends Controller<PokedexWithID> {
     req: Request<PokedexWithID>,
     res: Response,
   ): Promise<any> => {
-    console.log('oi');
+    console.log(req.body);
     
-    await this.service.create(req.body);
-    res.status(200).json('obj');
+    await this.service.read();
+    res.status(200).json('created');
   };
 }
 
