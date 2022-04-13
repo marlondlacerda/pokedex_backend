@@ -8,7 +8,7 @@ abstract class MongoModel<T> implements Model<T> {
 
   create = async (obj: T): Promise<T> => this.model.create({ ...obj });
 
-  read = async (): Promise<T[]> => this.model.find({}, { _id: 0 });
+  read = async (): Promise<T[]> => this.model.find({}).lean();
 }
 
 export default MongoModel;

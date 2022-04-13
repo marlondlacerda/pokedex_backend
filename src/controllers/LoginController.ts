@@ -19,11 +19,12 @@ class LoginController extends Controller<UserLogin> {
   public handle = async (
     req: Request<UserLogin>,
     res: Response,
-  ): Promise<any> => {
+  ): Promise<Response> => {
     const { body } = req;
 
     const result = await this.service.login(body);
-    console.log(result);
+
+    return res.status(200).json({ token: result});
   };
 }
 

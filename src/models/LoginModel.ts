@@ -7,6 +7,10 @@ mongoose.pluralize(null);
 interface UserLoginDocument extends UserLogin, Document {}
 
 const userLoginSchema = new Schema<UserLoginDocument>({
+  username: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,

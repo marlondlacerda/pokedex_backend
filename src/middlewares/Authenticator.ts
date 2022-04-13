@@ -2,6 +2,10 @@ import { JwtPayload, sign, verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import createError from '../utils';
 
+require('dotenv/config');
+
+const { SECRET } = process.env;
+
 // Source: https://stackoverflow.com/a/55718334
 declare module 'express-serve-static-core' {
   interface Request {
@@ -10,14 +14,18 @@ declare module 'express-serve-static-core' {
 }
 
 export interface Payload {
-  username: string;
+  username: string | undefined
 }
 
 class Authenticator {
   private secret: string;
 
   constructor() {
-    this.secret = 'secret';
+    if (!SECRET) {
+      throw createError('internal', 'SECRET is not defined');
+    }
+
+    this.secret = SECRET;
   }
 
   readonly generateToken = (payload: Payload) => sign(payload, this.secret, {
