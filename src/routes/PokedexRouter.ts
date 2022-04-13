@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import PokedexValidation from '../validations';
+import { PokedexValidation } from '../validations';
 import { Controller } from '../controllers';
 import { Authenticator } from '../middlewares';
 
-class CustomRouter<T> {
+class PokedexRouter<T> {
   public router: Router;
 
   constructor() {
@@ -18,13 +18,13 @@ class CustomRouter<T> {
   ) {
     this.router.get(route, controller.read);
 
-    this.router.post(
-      route, 
-      authenticator.authMiddleware,
-      validation.bodyPokedex, 
-      controller.create,
-    );
+    // this.router.post(
+    //   route, 
+    //   authenticator.authMiddleware,
+    //   validation.bodyPokedex, 
+    //   controller.create,
+    // );
   }
 }
 
-export default CustomRouter;
+export default PokedexRouter;
