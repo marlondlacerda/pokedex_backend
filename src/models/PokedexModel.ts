@@ -12,12 +12,28 @@ const pokeSchema = new Schema<PokedexDocument>({
     required: true,
   },
   type: {
-    type: String,
+    type: [String],
     required: true,
   },
   height: {
-    type: String,
-    required: true,
+    value: {
+      type: Number,
+      required: true,
+    },
+    measurement: {
+      type: String,
+      required: true,
+    },
+  },
+  weight: {
+    value: {
+      type: Number,
+      required: true,
+    },
+    measurement: {
+      type: String,
+      required: true,
+    },
   },
   description: {
     type: String,
@@ -26,7 +42,7 @@ const pokeSchema = new Schema<PokedexDocument>({
   baseStats: {
     hp: {
       type: Number,
-      require: true,
+      required: true,
     },
     atk: {
       type: Number,
@@ -50,14 +66,22 @@ const pokeSchema = new Schema<PokedexDocument>({
     },
   },
   moves: {
-    ability1: {
+    skill1: {
       type: String,
-      require: true,
+      required: true,
     },
-    ability2: {
+    skill2: {
       type: String,
-      require: true,
+      required: true,
     },
+  },
+  image1: {
+    type: String,
+    required: true,
+  },
+  image2: {
+    type: String,
+    required: true,
   },
 });
 

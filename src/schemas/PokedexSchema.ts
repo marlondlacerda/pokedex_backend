@@ -1,59 +1,53 @@
 import { z } from 'zod';
+import { numberSchema, stringSchema } from '../utils/createSchema';
 
 const pokedexSchema = z.object({
-  name: z.string({
-    required_error: 'Nome é obrigatório',
-    invalid_type_error: 'Nome deve ser uma string',
+  name: stringSchema('Name', 3, 10),
+
+  type: z.array(
+    stringSchema('Type', 3, 10),
+  ).max(2).nonempty({
+    message: 'Type must be a non-empty array',
   }),
-  type: z.string({
-    required_error: 'Tipo é obrigatório',
-    invalid_type_error: 'Tipo deve ser uma string',
+
+  height: z.object({
+    value: numberSchema('Height value'),
+    measurement: stringSchema('Height measurement', 1, 3),
   }),
-  height: z.string({
-    required_error: 'Tamanho é obrigatório',
-    invalid_type_error: 'HP deve ser uma string',
+
+  weight: z.object({
+    value: numberSchema('Weight value'),
+    measurement: stringSchema('Weight measurement', 1, 3),
   }),
-  description: z.string({
-    required_error: 'Descrição é obrigatório',
-    invalid_type_error: 'Descrição deve ser uma string',
-  }),
+
+  description: stringSchema('Description', 5, 200),
+
   baseStats: z.object({
-    hp: z.number({
-      required_error: 'HP é obrigatório',
-      invalid_type_error: 'HP deve ser um número',
-    }),
-    atk: z.number({
-      required_error: 'Ataque é obrigatório',
-      invalid_type_error: 'Ataque deve ser um número',
-    }),
-    def: z.number({
-      required_error: 'Defesa é obrigatório',
-      invalid_type_error: 'Defesa deve ser um número',
-    }),
-    satk: z.number({
-      required_error: 'Ataque especial é obrigatório',
-      invalid_type_error: 'Ataque especial deve ser um número',
-    }),
-    sdef: z.number({
-      required_error: 'Defesa especial é obrigatório',
-      invalid_type_error: 'Defesa especial deve ser um número',
-    }),
-    spd: z.number({
-      required_error: 'Velocidade é obrigatório',
-      invalid_type_error: 'Velocidade deve ser um número',
-    }),
+    hp: numberSchema('HP'),
+    atk: numberSchema('ATK'),
+    def: numberSchema('DEF'),
+    satk: numberSchema('SATK'),
+    sdef: numberSchema('SDEF'),
+    spd: numberSchema('SPD'),
+  }, {
+    required_error: 'Base stats are required',
   }),
+
   moves: z
     .object({
-      ability1: z.string({
-        required_error: 'Habilidade 1 é obrigatório',
-        invalid_type_error: 'Habilidade 1 deve ser uma string',
-      }),
-      ability2: z.string({
-        required_error: 'Habilidade 2 é obrigatório',
-        invalid_type_error: 'Habilidade 2 deve ser uma string',
-      }),
+      skill1: stringSchema('Skill 1', 3, 10),
+      skill2: stringSchema('Skill 2', 3, 10),
+    }, {
+      required_error: 'Moves are required',
     }),
+
+  image1: stringSchema('Image 1', 3, 10).url({
+    message: 'Image 1 must be a valid URL',
+  }),
+
+  image2: stringSchema('Image 2', 3, 10).url({
+    message: 'Image 2 must be a valid URL',
+  }),
 });
 
 type Pokedex = z.infer<typeof pokedexSchema>;
