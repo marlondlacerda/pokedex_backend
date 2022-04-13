@@ -1,5 +1,5 @@
 import { ZodError } from 'zod';
-import { Model } from '../interfaces';
+import { MongoModel } from '../models';
 
 export interface ServiceError {
   error: ZodError;
@@ -7,7 +7,7 @@ export interface ServiceError {
 
 abstract class Service<T> {
   constructor(
-    protected model: Model<T>,
+    protected model: MongoModel<T>,
   ) { }
 
   public async read(): Promise<T | T[] | ServiceError> {

@@ -4,16 +4,12 @@ import Service from './Service';
 
 class PokedexService extends Service<Pokedex> {
   constructor(
-    public model = new PokedexModel(),
+    protected model = new PokedexModel(),
   ) {
     super(model);
   }
 
-  public read = async (): Promise<Pokedex[]> => {
-    const result = await this.model.read();
-
-    return result;
-  };
+  readonly read = async (): Promise<Pokedex[]> => this.model.read();
 }
 
 export default PokedexService;

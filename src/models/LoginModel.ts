@@ -7,7 +7,7 @@ mongoose.pluralize(null);
 interface UserLoginDocument extends UserLogin, Document {}
 
 const userLoginSchema = new Schema<UserLoginDocument>({
-  username: {
+  email: {
     type: String,
     required: true,
   },
@@ -19,10 +19,13 @@ const userLoginSchema = new Schema<UserLoginDocument>({
 
 export class LoginModel extends MongoModel<UserLogin> {
   constructor(
-    public model = createModel('login', userLoginSchema),
+    protected model = createModel('login', userLoginSchema),
   ) {
     super(model);
   }
+
+  readonly readOne = async (email: string) => 
+    this.model.findOne({ email }, { _id: 0 });
 }
 
 export default LoginModel;
