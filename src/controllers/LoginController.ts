@@ -24,7 +24,7 @@ class LoginController extends Controller<UserLogin> {
 
     const result = await this.service.login(body);
 
-    return res.status(200).json({ token: result});
+    return res.status(200).json({ token: result });
   };
 }
 
