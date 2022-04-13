@@ -1,3 +1,2 @@
-import PokedexValidation from './PokedexValidation';
-
-export default PokedexValidation;
+export { default as PokedexValidation } from './PokedexValidation';
+export { default as LoginValidation } from './LoginValidation';
