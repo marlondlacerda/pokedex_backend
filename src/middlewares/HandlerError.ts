@@ -21,6 +21,12 @@ class HandlerError {
     res: Response, 
     next: NextFunction,
   ) {
+    if (err.name.includes('JsonWebTokenError')) {
+      return res
+        .status(401)
+        .json({ message: 'Invalid token' });
+    }
+
     this.status = errorMap[err.name];
 
     if (!this.status) return next(err);
