@@ -18,7 +18,7 @@ abstract class Controller<T> {
 
     const result = await this.service.create(body);
 
-    return res.status(StatusCodes.CREATED).json({ result });
+    return res.status(StatusCodes.CREATED).json(result);
   };
 
   public read = async (

@@ -8,8 +8,6 @@ class PokedexService extends Service<Pokedex> {
   ) {
     super(model);
   }
-
-  readonly read = async (): Promise<Pokedex[]> => this.model.read();
 }
 
 export default PokedexService;
