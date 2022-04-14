@@ -2,10 +2,10 @@ import { z } from 'zod';
 import { numberSchema, stringSchema } from '../utils/createSchema';
 
 const pokedexSchema = z.object({
-  name: stringSchema('Name', 3, 10),
+  name: stringSchema('Name', 3, 20),
 
   type: z.array(
-    stringSchema('Type', 3, 10),
+    stringSchema('Type', 3, 20),
   ).max(2).nonempty({
     message: 'Type must be a non-empty array',
   }),
@@ -35,8 +35,8 @@ const pokedexSchema = z.object({
 
   moves: z
     .object({
-      skill1: stringSchema('Skill 1', 3, 10),
-      skill2: stringSchema('Skill 2', 3, 10),
+      skill1: stringSchema('Skill 1', 3, 20),
+      skill2: stringSchema('Skill 2', 3, 20),
     }, {
       required_error: 'Moves are required',
     }),
