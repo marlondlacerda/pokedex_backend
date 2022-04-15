@@ -1,6 +1,7 @@
 node_modules
 dist
 tests
+__tests__
 build
 coverage
 nyc.config.js
