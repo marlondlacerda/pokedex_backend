@@ -4,7 +4,7 @@ import { LoginController } from '../controllers';
 import { LoginRouter } from '../routes';
 
 class LoginFactory {
-  public static creatLoginRouter(): Router {
+  public static createLoginRouter(): Router {
     const loginValidation = new LoginValidation();
     const loginController = new LoginController();
     const loginRouter = new LoginRouter();

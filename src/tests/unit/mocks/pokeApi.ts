@@ -1,5 +1,4 @@
-
-const pokeApi= [
+const pokeApi = [
   {
     "_id": 1,
     "name": "Bulbasaur",

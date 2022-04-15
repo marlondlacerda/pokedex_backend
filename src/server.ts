@@ -1,19 +1,18 @@
 import App from './app';
+import { LoginFactory, PokedexFactory } from './Factories';
 import { HandlerError, ZodHandlerError } from './middlewares';
-
-import RouterFactory from './Factories/pokedexFactory';
-import { LoginFactory } from './Factories';
 
 const server = new App();
 
 const handleError = new HandlerError();
 const zodHandlerError = new ZodHandlerError();
 
-const loginFactory = LoginFactory.creatLoginRouter();
-const pokedexFactory = RouterFactory.createPokedexRouter();
+const loginFactory = LoginFactory.createLoginRouter();
+const pokedexFactory = PokedexFactory.createPokedexRouter();
 
 server.addRouter(loginFactory);
 server.addRouter(pokedexFactory);
+
 server.errorRouter(handleError, zodHandlerError);
 
 server.startServer();
