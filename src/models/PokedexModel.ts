@@ -15,10 +15,10 @@ const pokeSchema = new Schema<PokedexDocument>({
     type: String,
     required: true,
   },
-  type: {
-    type: [String],
+  type: [{
+    type: String,
     required: true,
-  },
+  }],
   height: {
     value: {
       type: Number,

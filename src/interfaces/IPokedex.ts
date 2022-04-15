@@ -1,7 +1,7 @@
 export interface IPokedex {
-  id: number,
+  _id?: number,
   name: string,
-  type: [string],
+  type: [string, string?],
   weight: {
     value: number,
     measurement: string,

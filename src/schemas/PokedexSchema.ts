@@ -5,10 +5,15 @@ const pokedexSchema = z.object({
   name: stringSchema('Name', 3, 20),
 
   type: z.array(
-    stringSchema('Type', 3, 20),
-  ).max(2).nonempty({
-    message: 'Type must be a non-empty array',
-  }),
+    stringSchema('Type', 3, 20)
+      .nonempty({
+        message: 'Type must be a non-empty array',
+      }),
+    {
+      required_error: 'Type is required',
+      invalid_type_error: 'Type must be a array',
+    },
+  ),
 
   height: z.object({
     value: numberSchema('Height value'),
@@ -53,7 +58,7 @@ const pokedexSchema = z.object({
 type Pokedex = z.infer<typeof pokedexSchema>;
 
 export interface PokedexWithID extends Pokedex {
-  id: number;
+  '_id': number;
 }
 
 export default Pokedex;
