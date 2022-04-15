@@ -21,10 +21,18 @@ class HandlerError {
     res: Response, 
     next: NextFunction,
   ) {
+    // Error with library jsonwebtoken
     if (err.name.includes('JsonWebTokenError')) {
       return res
         .status(401)
         .json({ message: 'Invalid token' });
+    }
+
+    // Error with library moongose
+    if (err.message.includes('duplicate key')) {
+      return res
+        .status(400)
+        .json({ error: 'Duplicate _id' });
     }
 
     this.status = errorMap[err.name];

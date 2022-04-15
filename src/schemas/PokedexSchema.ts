@@ -55,11 +55,11 @@ const pokedexSchema = z.object({
   }),
 });
 
+const pokedexWithIDAndSchema = pokedexSchema.extend({
+  _id: numberSchema('_id'),
+});
+
 type Pokedex = z.infer<typeof pokedexSchema>;
 
-export interface PokedexWithID extends Pokedex {
-  '_id': number;
-}
-
 export default Pokedex;
-export { pokedexSchema };
+export { pokedexSchema, pokedexWithIDAndSchema };

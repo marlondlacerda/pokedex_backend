@@ -12,11 +12,12 @@ class ZodHandlerError {
     next: NextFunction,
   ) {
     if (err.name !== 'ZodError') return next(err);
+
     const { message } = err.issues[0];
 
     this.statusCode = StatusCodes.BAD_REQUEST;
 
-    res.status(this.statusCode).json({ message });
+    res.status(this.statusCode).json({ error: message });
   }
 }
 

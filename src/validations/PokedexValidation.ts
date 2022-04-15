@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { pokedexSchema as ZodSchema } from '../schemas/PokedexSchema';
+import { pokedexWithIDAndSchema as ZodSchema } from '../schemas/PokedexSchema';
 
 class PokedexValidation {
   private schema = ZodSchema;
