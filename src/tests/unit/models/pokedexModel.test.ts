@@ -1,9 +1,8 @@
 import { expect } from "chai"
 import Sinon from "sinon"
 
-import PokeApi from "../mocks"
 import { PokedexModel } from "../../../models"
-import pokeApi from "../mocks"
+import pokeApi, { Pokemon } from "../mocks"
 
 describe('Pokedex Model', () => {
   let pokedexModel = new PokedexModel()
@@ -21,8 +20,8 @@ describe('Pokedex Model', () => {
       const result = await pokedexModel.read()
 
       expect(result).to.be.an('array')
-      expect(result).to.have.lengthOf(PokeApi.length)
-      expect(result).to.deep.equal(PokeApi)
+      expect(result).to.have.lengthOf(pokeApi.length)
+      expect(result).to.deep.equal(pokeApi)
     })
 
     it('Check object properties', async () => {
@@ -54,6 +53,65 @@ describe('Pokedex Model', () => {
 
       expect(result[0]).to.have.property('image1')
       expect(result[0]).to.have.property('image2')
+    })
+  })
+
+  describe('Testing Create of PokedexModel', () => {
+    const newPokemon = {
+      "_id": 3,
+      "name": "Bulbasaur",
+      "type": [
+        "Grass",
+        "Poison"
+      ],
+      "weight": {
+        "value": 6.9,
+        "measurement": "kg"
+      },
+      "height": {
+        "value": 0.7,
+        "measurement": "m"
+      },
+      "description": "There is a plant seed on its back right from the day this POKéMON is born. The seed slowly grows larger.",
+      "baseStats": {
+        "hp": 45,
+        "atk": 49,
+        "def": 49,
+        "satk": 65,
+        "sdef": 65,
+        "spd": 45
+      },
+      "moves": {
+        "skill1": "Growl",
+        "skill2": "Tackle"
+      },
+      "image1": "https://archives.bulbagarden.net/media/upload/2/21/001Bulbasaur.png",
+      "image2": "https://archives.bulbagarden.net/media/upload/7/76/Spr_5b_001.png"
+    };
+
+    before(() => {
+      Sinon.stub(pokedexModel.model, 'create').callsFake(Pokemon.create)
+    })
+
+    after(() => {
+      Sinon.restore();
+      pokeApi.pop()
+    });
+
+    describe('Before being tested', () => {
+      it('Should return 2 records', async () => {
+        expect(pokeApi.length).to.be.equal(2)
+      })
+    })
+
+    describe('After being tested', () => {
+      it('Should return 3 records', async () => {
+        const result = await pokedexModel.create(newPokemon)
+
+        expect(pokeApi.length).to.be.equal(3)
+        expect(result).to.be.an('object')
+        expect(result).to.deep.equal(pokeApi[2])
+      })
     })
   })
 })
