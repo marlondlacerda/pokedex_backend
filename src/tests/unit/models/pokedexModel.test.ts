@@ -8,7 +8,7 @@ import pokemonInput from "../inputs"
 describe('Pokedex Model', () => {
   let pokedexModel = new PokedexModel()
 
-  describe('Testing getAll PokedexModel', () => {
+  describe('1) - Testing getAll PokedexModel', () => {
     before(() => {
       Sinon.stub(pokedexModel.model, 'find').resolves(pokeApi)
     })
@@ -17,7 +17,7 @@ describe('Pokedex Model', () => {
       Sinon.restore();
     });
 
-    it('Assert your return is an Array, and length is the same as mock', async () => {
+    it('1) - Assert your return is an Array, and length is the same as mock', async () => {
       const result = await pokedexModel.read()
 
       expect(result).to.be.an('array')
@@ -25,7 +25,7 @@ describe('Pokedex Model', () => {
       expect(result).to.deep.equal(pokeApi)
     })
 
-    it('Check object properties', async () => {
+    it('2) - Check object properties', async () => {
       const result = await pokedexModel.read()
 
       expect(result[0]).to.have.property('_id')
@@ -57,7 +57,7 @@ describe('Pokedex Model', () => {
     })
   })
 
-  describe('Testing Create of PokedexModel', () => {
+  describe('2) - Testing Create of PokedexModel', () => {
     before(() => {
       Sinon.stub(pokedexModel.model, 'create').callsFake(Pokemon.create)
     })
@@ -67,14 +67,14 @@ describe('Pokedex Model', () => {
       pokeApi.pop()
     });
 
-    describe('Before being tested', () => {
-      it('Should return 2 records', async () => {
+    describe('1) - Before being tested', () => {
+      it('1) - Should return 2 records', async () => {
         expect(pokeApi.length).to.be.equal(2)
       })
     })
 
-    describe('After being tested', () => {
-      it('Should return 3 records', async () => {
+    describe('2) - After being tested', () => {
+      it('1) - Should return 3 records', async () => {
         const result = await pokedexModel.create(pokemonInput)
 
         expect(pokeApi.length).to.be.equal(3)

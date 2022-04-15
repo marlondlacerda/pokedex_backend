@@ -8,7 +8,7 @@
     "dev": "ts-node-dev src/server.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "node ./build/server.js",
-    "test": "mocha -r ts-node/register src/tests/unit/**/*.test.ts --exit -t 60000",
+    "test": "mocha -r ts-node/register src/tests/unit/**/*$NAME*.{test,spec}.ts --exit -t 60000",
     "test:coverage": "nyc npm run test"
   },
   "keywords": [],

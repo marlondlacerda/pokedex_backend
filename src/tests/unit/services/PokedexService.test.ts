@@ -8,7 +8,7 @@ import pokemonInput from "../inputs";
 describe('Pokedex Service', () => {
   let pokedexService = new PokedexService()
 
-  describe('Testing getAll Pokedex Service', () => {
+  describe('1) - Testing getAll Pokedex Service', () => {
     before(() => {
       Sinon.stub(pokedexService.model, 'read').resolves(pokeApi)
     })
@@ -17,7 +17,7 @@ describe('Pokedex Service', () => {
       Sinon.restore();
     });
 
-    it('Assert your return is an Array, and length is the same as mock', async () => {
+    it('1) - Assert your return is an Array, and length is the same as mock', async () => {
       const result = await pokedexService.read();
 
       expect(result).to.be.an('array')
@@ -26,7 +26,7 @@ describe('Pokedex Service', () => {
     }),
 
 
-    it('Check object properties', async () => {
+    it('2) - Check object properties', async () => {
       const result = await pokedexService.read()
 
       if (result instanceof Array) {
@@ -60,7 +60,7 @@ describe('Pokedex Service', () => {
     })
   })
 
-  describe('Testing Create of Pokedex Service', () => {
+  describe('2) - Testing Create of Pokedex Service', () => {
     before(() => {
       Sinon.stub(pokedexService.model, 'create').callsFake(Pokemon.create)
     })
@@ -70,14 +70,14 @@ describe('Pokedex Service', () => {
       pokeApi.pop()
     });
 
-    describe('Before being tested', () => {
-      it('Should return 2 records', async () => {
+    describe('1) - Before being tested', () => {
+      it('1) - Should return 2 records', async () => {
         expect(pokeApi.length).to.be.equal(2)
       })
     })
 
-    describe('After being tested', () => {
-      it('Should return 3 records', async () => {
+    describe('2) - After being tested', () => {
+      it('1) - Should return 3 records', async () => {
         const result = await pokedexService.create(pokemonInput)
 
         expect(pokeApi.length).to.be.equal(3)
