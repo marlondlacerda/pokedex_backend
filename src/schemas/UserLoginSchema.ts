@@ -1,8 +1,8 @@
-import { string, z } from 'zod';
+import { z } from 'zod';
 import { stringSchema } from '../utils/createSchema';
 
 export const UserLoginSchema = z.object({
-  username: string().optional(),
+  username: z.optional(z.string()),
   email: stringSchema('Email', 3, 50).email(),
   password: stringSchema('Password', 3, 30),
 });

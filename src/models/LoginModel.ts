@@ -23,7 +23,7 @@ const userLoginSchema = new Schema<UserLoginDocument>({
 
 export class LoginModel extends MongoModel<UserLogin> {
   constructor(
-    protected model = createModel('login', userLoginSchema),
+    readonly model = createModel('login', userLoginSchema),
   ) {
     super(model);
   }
