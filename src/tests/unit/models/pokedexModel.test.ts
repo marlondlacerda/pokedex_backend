@@ -3,6 +3,7 @@ import Sinon from "sinon"
 
 import { PokedexModel } from "../../../models"
 import pokeApi, { Pokemon } from "../mocks"
+import pokemonInput from "../inputs"
 
 describe('Pokedex Model', () => {
   let pokedexModel = new PokedexModel()
@@ -57,38 +58,6 @@ describe('Pokedex Model', () => {
   })
 
   describe('Testing Create of PokedexModel', () => {
-    const newPokemon = {
-      "_id": 3,
-      "name": "Bulbasaur",
-      "type": [
-        "Grass",
-        "Poison"
-      ],
-      "weight": {
-        "value": 6.9,
-        "measurement": "kg"
-      },
-      "height": {
-        "value": 0.7,
-        "measurement": "m"
-      },
-      "description": "There is a plant seed on its back right from the day this POKéMON is born. The seed slowly grows larger.",
-      "baseStats": {
-        "hp": 45,
-        "atk": 49,
-        "def": 49,
-        "satk": 65,
-        "sdef": 65,
-        "spd": 45
-      },
-      "moves": {
-        "skill1": "Growl",
-        "skill2": "Tackle"
-      },
-      "image1": "https://archives.bulbagarden.net/media/upload/2/21/001Bulbasaur.png",
-      "image2": "https://archives.bulbagarden.net/media/upload/7/76/Spr_5b_001.png"
-    };
-
     before(() => {
       Sinon.stub(pokedexModel.model, 'create').callsFake(Pokemon.create)
     })
@@ -106,7 +75,7 @@ describe('Pokedex Model', () => {
 
     describe('After being tested', () => {
       it('Should return 3 records', async () => {
-        const result = await pokedexModel.create(newPokemon)
+        const result = await pokedexModel.create(pokemonInput)
 
         expect(pokeApi.length).to.be.equal(3)
         expect(result).to.be.an('object')

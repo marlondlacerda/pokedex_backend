@@ -1,0 +1,31 @@
+{
+  "_id": 3,
+  "name": "Venusaur",
+  "type": [
+    "Grass",
+    "Poison"
+  ],
+  "weight": {
+    "value": 100.0,
+    "measurement": "kg"
+  },
+  "height": {
+    "value": 2.0,
+    "measurement": "m"
+  },
+  "description": "A bewitching aroma wafts from its flower. The fragrance becalms those engaged in a battle.",
+  "baseStats": {
+    "hp": 80,
+    "atk": 82,
+    "def": 83,
+    "satk": 100,
+    "sdef": 100,
+    "spd": 80
+  },
+  "moves": {
+    "skill1": "Double-Edge",
+    "skill2": "Solar Beam"
+  },
+  "image1": "https://archives.bulbagarden.net/media/upload/a/ae/003Venusaur.png",
+  "image2": "https://archives.bulbagarden.net/media/upload/6/68/Spr_5b_003_m.png"
+}
