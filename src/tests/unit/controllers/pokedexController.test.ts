@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Pokedex Controller', () => {
+describe('Unit Test - Pokedex Controller', () => {
   const pokedexModel = new PokedexModel();
   const pokedexService = new PokedexService(pokedexModel);
   const pokedexController = new PokedexController(pokedexService)

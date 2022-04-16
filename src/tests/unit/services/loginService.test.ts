@@ -8,7 +8,7 @@ import { userInput } from "../inputs";
 import { Login, User } from "../mocks";
 
 
-describe('1) - Login Service', () => {
+describe('Unit Test - Login Service', () => {
   const authenticator = new Authenticator();
   const loginModel = new LoginModel();
   const loginService = new LoginService(loginModel, authenticator)

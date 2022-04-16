@@ -5,7 +5,7 @@ import { PokedexModel } from "../../../models"
 import pokeApi, { Pokemon } from "../mocks"
 import { pokemonInput } from "../inputs"
 
-describe('Pokedex Model', () => {
+describe('Unit Test - Pokedex Model', () => {
   const pokedexModel = new PokedexModel()
 
   describe('1) - Testing getAll PokedexModel', () => {

@@ -4,7 +4,7 @@ import Sinon from "sinon"
 import { LoginModel } from "../../../models"
 import { userInput } from "../inputs"
 
-describe('1) - Login Model', () => {
+describe('Unit Test - Login Model', () => {
   const loginModel = new LoginModel()
 
   describe('1) - Testing readOne LoginModel', () => {

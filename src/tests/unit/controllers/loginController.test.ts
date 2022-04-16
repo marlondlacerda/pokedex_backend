@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Login Controller', () => {
+describe('Unit Test - Login Controller', () => {
   const authenticator = new Authenticator();
   const loginModel = new LoginModel();
   const loginService = new LoginService(loginModel, authenticator);
