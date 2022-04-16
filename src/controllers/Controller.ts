@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import createError from '../utils';
 import { Service } from '../services';
 
 abstract class Controller<T> {
@@ -26,13 +25,6 @@ abstract class Controller<T> {
     res: Response,
   ): Promise<Response> => {
     const result = await this.service.read();
-
-    if (!result) {
-      throw createError(
-        'internal',
-        'Oops! Something went wrong on our server. Please try again later.',
-      );
-    }
 
     return res.status(StatusCodes.OK).json(result);
   };
