@@ -27,8 +27,7 @@ describe('1) - Login Model', () => {
       }
 
       const result = await loginModel.readOne(user.email)
-      console.log(result);
-      
+
       expect(result).to.deep.equal(user);
     })
   })

@@ -8,7 +8,7 @@ import { Authenticator } from '../middlewares';
 
 class LoginService extends Service<UserLogin> {
   constructor(
-    protected model = new LoginModel(),
+    readonly model = new LoginModel(),
     protected authenticate = new Authenticator(),
   ) {
     super(model);
@@ -22,7 +22,7 @@ class LoginService extends Service<UserLogin> {
     if (!result) {
       throw createError('unauthorized', 'Incorrect email or password');
     }
-
+    
     if (!await bcrypt.compare(password, result.password)) {
       throw createError('unauthorized', 'Incorrect email or password');
     }

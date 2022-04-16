@@ -28,7 +28,7 @@ export class LoginModel extends MongoModel<UserLogin> {
     super(model);
   }
 
-  readonly readOne = async (email: string) => 
+  readonly readOne = async (email: string): Promise<UserLogin | null > => 
     this.model.findOne({ email }, { _id: 0 });
 }
 
