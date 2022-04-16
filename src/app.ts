@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import 'express-async-errors';
+
 import { HandlerError, ZodHandlerError } from './middlewares';
 import Connection from './models/config';
 
@@ -8,11 +9,14 @@ require('dotenv/config');
 const { PORT } = process.env;
 
 class App {
-  private app: express.Application;
+  readonly app: express.Application;
+
+  private connection: Promise<typeof import('mongoose')>;
 
   constructor() {
     this.app = express();
     this.config();
+    this.connection = Connection();
   }
 
   private config():void {
@@ -22,6 +26,7 @@ class App {
         'Access-Control-Allow-Methods',
         'GET,POST,DELETE,OPTIONS,PUT,PATCH',
       );
+
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
@@ -29,9 +34,10 @@ class App {
     this.app.use(accessControl);
   }
 
+  /* istanbul ignore next */
   public startServer(port = 3001) {
-    Connection();
     const actualPort = PORT || port;
+
     return this.app.listen(
       actualPort,
       () => console.log('Estamos online na porta: ', actualPort),

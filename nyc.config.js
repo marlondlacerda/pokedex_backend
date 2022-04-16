@@ -4,6 +4,7 @@ module.exports = {
     'src/tests',
     'src/models/config',
   ],
+  // for all files use ["src/**/*"]
   include: [
     'src/models',
     'src/services',
