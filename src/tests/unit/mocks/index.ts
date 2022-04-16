@@ -21,7 +21,6 @@ const mockFindOne = (Instance: typeof User, where: any) => {
     return Instance[0];
   }
 
-  const entries = Object.entries(where);
   let result: any;
 
     const index = Instance
@@ -30,7 +29,6 @@ const mockFindOne = (Instance: typeof User, where: any) => {
     if (index !== -1) {
       result = Instance[index];
     }
-
 
   return result;
 };

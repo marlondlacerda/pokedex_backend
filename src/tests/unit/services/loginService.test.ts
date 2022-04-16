@@ -1,19 +1,19 @@
 import { expect } from "chai";
 import Sinon from "sinon";
 
+import { LoginModel } from "../../../models"
 import { LoginService } from "../../../services";
+import { Authenticator } from "../../../middlewares";
+import { userInput } from "../inputs";
 import { Login, User } from "../mocks";
 
-describe('1) - Pokedex Service', () => {
-  let loginService = new LoginService()
 
-  describe('1) - Testing readOne Pokedex Service', () => {
+describe('1) - Login Service', () => {
+  const authenticator = new Authenticator();
+  const loginModel = new LoginModel();
+  const loginService = new LoginService(loginModel, authenticator)
 
-    const user = {
-  email: 'miltin@test.com',
-  password: '123456'
-}
-
+  describe('1) - Testing readOne Login Service', () => {
     before(() => {
       Sinon.stub(loginService.model, 'readOne').callsFake(Login.readOne);
     })
@@ -22,11 +22,10 @@ describe('1) - Pokedex Service', () => {
       Sinon.restore();
     });
 
-    it('1) - Assert your return is a string with password of UserMock', async () => {
-      const result = await loginService.login(user);
-      
+    it('1) - Your return is a string with token', async () => {
+      const result = await loginService.login(userInput);
+
       expect (result).to.be.an('string');
-      expect (result).to.equal(User[0].password);
     })
 
   })
