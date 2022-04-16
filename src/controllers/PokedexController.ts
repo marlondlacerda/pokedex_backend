@@ -6,7 +6,7 @@ class PokedexController extends Controller<PokedexWithID> {
   private $route: string;
 
   constructor(
-    readonly service = new PokedexService(),
+    readonly service: PokedexService,
     route = '/pokedex',
   ) {
     super(service);

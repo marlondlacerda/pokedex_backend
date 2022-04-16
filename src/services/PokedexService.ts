@@ -4,7 +4,7 @@ import Service from './Service';
 
 class PokedexService extends Service<Pokedex> {
   constructor(
-    readonly model = new PokedexModel(),
+    readonly model: PokedexModel,
   ) {
     super(model);
   }
