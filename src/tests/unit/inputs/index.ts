@@ -1,3 +1,4 @@
-import pokemon from "./pokemonInput.json"
+import pokemonInput from "./pokemonInput.json"
+import userInput from "./userInput.json"
 
-export default pokemon;
+export { pokemonInput, userInput }

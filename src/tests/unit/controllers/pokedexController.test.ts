@@ -1,19 +1,25 @@
+import { Request } from 'express';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-
-import pokeApi from "../mocks";
-import pokemonInput from "../inputs";
-import { PokedexController } from '../../../controllers';
 import Sinon from 'sinon';
-import { Request, Response } from 'express';
+
+import { PokedexService } from '../../../services';
+import { PokedexController } from '../../../controllers';
+import { pokemonInput } from "../inputs";
+import pokeApi from "../mocks";
+import { PokedexModel } from '../../../models';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('Pokedex Controller', () => {
+  const pokedexModel = new PokedexModel();
+  const pokedexService = new PokedexService(pokedexModel);
+  const pokedexController = new PokedexController(pokedexService)
+
   describe('1) Test route of class Controller', () => {
-    let pokedexController = new PokedexController()
+
   
     it('1) - pokedexController.route should be /pokedex', () => {
       expect(pokedexController.route).to.equal('/pokedex')
@@ -21,7 +27,6 @@ describe('Pokedex Controller', () => {
   })
 
   describe('2) - Test your functions', () => {
-    let pokedexController = new PokedexController()
     let request: any = {};
     let response: any = {};
 

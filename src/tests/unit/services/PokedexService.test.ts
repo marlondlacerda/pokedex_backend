@@ -3,10 +3,12 @@ import Sinon from "sinon";
 
 import { PokedexService } from "../../../services";
 import pokeApi, { Pokemon } from "../mocks";
-import pokemonInput from "../inputs";
+import { pokemonInput } from "../inputs";
+import { PokedexModel } from "../../../models";
 
 describe('Pokedex Service', () => {
-  let pokedexService = new PokedexService()
+  const pokedexModel = new PokedexModel();
+  const pokedexService = new PokedexService(pokedexModel)
 
   describe('1) - Testing getAll Pokedex Service', () => {
     before(() => {

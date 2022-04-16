@@ -3,10 +3,10 @@ import Sinon from "sinon"
 
 import { PokedexModel } from "../../../models"
 import pokeApi, { Pokemon } from "../mocks"
-import pokemonInput from "../inputs"
+import { pokemonInput } from "../inputs"
 
 describe('Pokedex Model', () => {
-  let pokedexModel = new PokedexModel()
+  const pokedexModel = new PokedexModel()
 
   describe('1) - Testing getAll PokedexModel', () => {
     before(() => {
