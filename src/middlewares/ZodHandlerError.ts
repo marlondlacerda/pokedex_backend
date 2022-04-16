@@ -11,6 +11,7 @@ class ZodHandlerError {
     res: Response,
     next: NextFunction,
   ) {
+    /* istanbul ignore next */
     if (err.name !== 'ZodError') return next(err);
 
     const { message } = err.issues[0];

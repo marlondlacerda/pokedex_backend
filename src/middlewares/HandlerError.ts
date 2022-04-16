@@ -25,7 +25,7 @@ class HandlerError {
     if (err.name.includes('JsonWebTokenError')) {
       return res
         .status(401)
-        .json({ message: 'Invalid token' });
+        .json({ error: 'Invalid token' });
     }
 
     // Error with library moongose
@@ -35,10 +35,11 @@ class HandlerError {
         .json({ error: 'Duplicate _id' });
     }
 
+    /* istanbul ignore next */
     this.status = errorMap[err.name];
-
+    /* istanbul ignore next */
     if (!this.status) return next(err);
-
+    /* istanbul ignore next */
     res.status(this.status).json({ error: err.message });
   }
 }

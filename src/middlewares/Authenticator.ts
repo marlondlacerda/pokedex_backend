@@ -21,8 +21,9 @@ class Authenticator {
   private secret: string;
 
   constructor() {
+    /* istanbul ignore if */
     if (!SECRET) {
-      throw createError('internal', 'SECRET is not defined');
+      throw new Error('SECRET is not defined');
     }
 
     this.secret = SECRET;
