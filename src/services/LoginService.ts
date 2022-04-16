@@ -1,15 +1,16 @@
 import bcrypt from 'bcryptjs';
 
-import createError from '../utils';
+import Service from './Service';
 import { LoginModel } from '../models/LoginModel';
 import { UserLogin } from '../schemas';
-import Service from './Service';
 import { Authenticator } from '../middlewares';
+
+import createError from '../utils';
 
 class LoginService extends Service<UserLogin> {
   constructor(
-    readonly model = new LoginModel(),
-    protected authenticate = new Authenticator(),
+    readonly model: LoginModel,
+    protected authenticate: Authenticator,
   ) {
     super(model);
   }

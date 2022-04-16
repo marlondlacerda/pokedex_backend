@@ -7,7 +7,7 @@ class LoginController extends Controller<UserLogin> {
   private $route: string;
 
   constructor(
-    readonly service = new LoginService(),
+    readonly service: LoginService,
     route = '/login',
   ) {
     super(service);
