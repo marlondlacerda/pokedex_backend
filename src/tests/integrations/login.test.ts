@@ -1,13 +1,14 @@
-const chai = require('chai')
-const chaiHttp = require('chai-http')
+import chai from 'chai';
+import chaiHttp from 'chai-http';
 
 import { Response } from 'superagent';
 
-import { invalidUserEmail, invalidUserPassword, user } from './inputs';
+import * as user from './inputs';
 
 import App from '../../app';
 import { LoginFactory } from '../../Factories'
 import { HandlerError, ZodHandlerError } from '../../middlewares';
+import mongoose from 'mongoose';
 
 const app = new App();
 const handleError = new HandlerError();
@@ -23,12 +24,19 @@ const { expect } = chai;
 
 describe('Integration Test - Endpoint "/login"', () => {
   describe('1) - When Login sucess', () => {
+    before(async () => {
+      Promise.all([
+        await mongoose.connection.collection('login').drop(),
+        await mongoose.connection.collection('login').insertOne(user.userFromDB)
+      ]);
+    });
+
     it('1) - Shoud return status 200 and a token', async () => {
       const response: Response = await chai
       .request(app.app)
-      .post(`/login`)
-      .send(user);
-      
+      .post('/login')
+      .send(user.validUser);
+
       expect(response.status).to.be.equal(200);
       expect(response.body).to.have.property('token');
     });
@@ -39,7 +47,7 @@ describe('Integration Test - Endpoint "/login"', () => {
       const response: Response = await chai
       .request(app.app)
         .post('/login')
-        .send(invalidUserEmail);
+        .send(user.invalidUserEmail);
 
       const { status, body } = response;
 
@@ -52,7 +60,7 @@ describe('Integration Test - Endpoint "/login"', () => {
       const response: Response = await chai
       .request(app.app)
       .post('/login')
-        .send(invalidUserPassword);
+        .send(user.invalidUserPassword);
         
       const { status, body } = response;
       
