@@ -5,7 +5,7 @@ import Sinon from 'sinon';
 
 import { PokedexService } from '../../../services';
 import { PokedexController } from '../../../controllers';
-import { pokemonInput } from "../inputs";
+import { pokemonInput, pokemonUpdateInput } from "../inputs";
 import pokeApi from "../mocks";
 import { PokedexModel } from '../../../models';
 
@@ -82,5 +82,30 @@ describe('Unit Test - Pokedex Controller', () => {
         expect(result.json).to.deep.equal(pokemonInput);
       })
     })
+
+    describe("3) - Test update Controller when use .put", async () => {
+      before(() => {
+        Sinon.stub(pokedexController.service, 'update').resolves(pokemonUpdateInput)
+
+        response = {
+          status: (status: number) => {
+            return {
+              json: (data: any) => ({ status, json: data })
+            }
+          }
+        }
+      });
+
+      after(() => {
+        Sinon.restore();
+      });
+
+      it('1) - Assert status and json of return is equal 200 and same of api', async () => {
+        const result = await pokedexController.update(request, response);
+        expect(result.status).to.equal(200);
+        expect(result.json).to.be.an('object');
+        expect(result.json).to.deep.equal(pokemonUpdateInput);
+      })
+    });
   })
 })
