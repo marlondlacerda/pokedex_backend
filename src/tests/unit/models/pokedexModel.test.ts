@@ -3,7 +3,7 @@ import Sinon from "sinon"
 
 import { PokedexModel } from "../../../models"
 import pokeApi, { Pokemon } from "../mocks"
-import { pokemonInput } from "../inputs"
+import { pokemonInput, pokemonUpdateInput } from "../inputs/pokemonInputs"
 
 describe('Unit Test - Pokedex Model', () => {
   const pokedexModel = new PokedexModel()
@@ -56,7 +56,6 @@ describe('Unit Test - Pokedex Model', () => {
       expect(result[0]).to.have.property('image2')
     })
   })
-
   describe('2) - Testing Create of PokedexModel', () => {
     before(() => {
       Sinon.stub(pokedexModel.model, 'create').callsFake(Pokemon.create)
@@ -83,4 +82,21 @@ describe('Unit Test - Pokedex Model', () => {
       })
     })
   })
+
+  describe('3) - Testing Update of PokedexModel', () => {
+    before(() => {
+      Sinon.stub(pokedexModel.model, 'findOneAndUpdate').resolves(pokemonUpdateInput)
+    })
+
+    after(() => {
+      Sinon.restore();
+    });
+
+    it('1) - Should return the update profile', async () => {
+      const result = await pokedexModel.update(pokemonInput._id, pokemonInput)
+
+      expect(result).to.be.an('object')
+      expect(result).to.deep.equal(pokemonUpdateInput)
+    })
+  });
 })
