@@ -93,7 +93,7 @@ describe('Unit Test - Pokedex Model', () => {
     });
 
     it('1) - Should return the update profile', async () => {
-      const result = await pokedexModel.update(pokemonInput._id, pokemonInput)
+      const result = await pokedexModel.update(pokemonInput._id, pokemonUpdateInput)
 
       expect(result).to.be.an('object')
       expect(result).to.deep.equal(pokemonUpdateInput)

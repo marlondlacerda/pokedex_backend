@@ -3,7 +3,7 @@ import Sinon from "sinon";
 
 import { PokedexService } from "../../../services";
 import pokeApi, { Pokemon } from "../mocks";
-import { pokemonInput } from "../inputs";
+import { pokemonInput, pokemonUpdateInput } from "../inputs";
 import { PokedexModel } from "../../../models";
 
 describe('Unit Test - Pokedex Service', () => {
@@ -88,4 +88,21 @@ describe('Unit Test - Pokedex Service', () => {
       })
     })
   })
+
+  describe('3) - Testing Update of Pokedex Service', () => {
+    before(() => {
+      Sinon.stub(pokedexService.model, 'update').resolves(pokemonUpdateInput)
+    })
+
+    after(() => {
+      Sinon.restore();
+    });
+
+    it('1) - Should return an Update Pokemon', async () => {
+      const result = await pokedexService.update(pokemonInput._id, pokemonUpdateInput)
+
+      expect(result).to.be.an('object')
+      expect(result).to.deep.equal(pokemonUpdateInput)
+    });
+  });
 })
