@@ -8,19 +8,18 @@ import * as pokemon from './inputs';
 
 import App from '../../app';
 import { PokedexFactory, LoginFactory } from '../../Factories'
-import { HandlerError, ZodHandlerError } from '../../middlewares';
+import { HandlerError } from '../../middlewares';
 import pokedexArray from './matchs/pokedexArray';
 import { pokemonPartialUpdated } from './matchs';
 
 const app = new App();
 const handleError = new HandlerError();
-const zodHandlerError = new ZodHandlerError();
 const pokedexFactory = PokedexFactory.createPokedexRouter();
 const loginFactory = LoginFactory.createLoginRouter();
 
 app.addRouter(pokedexFactory);
 app.addRouter(loginFactory);
-app.errorRouter(handleError, zodHandlerError);
+app.errorRouter(handleError);
 
 chai.use(chaiHttp);
 

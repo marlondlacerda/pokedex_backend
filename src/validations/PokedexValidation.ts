@@ -30,8 +30,15 @@ class PokedexValidation {
     res: Response,
     next: NextFunction,
   ) => {
-    this.partialSchema.parse(req.body);
-    next();
+    try {
+      this.partialSchema.parse(req.body);
+
+      next();
+    } catch (err: any) {
+      const { message } = err.issues[0];
+
+      res.status(StatusCodes.BAD_REQUEST).json({ error: message });
+    }
   };
 }
 

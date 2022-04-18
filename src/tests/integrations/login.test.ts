@@ -7,16 +7,15 @@ import * as user from './inputs';
 
 import App from '../../app';
 import { LoginFactory } from '../../Factories'
-import { HandlerError, ZodHandlerError } from '../../middlewares';
+import { HandlerError } from '../../middlewares';
 import mongoose from 'mongoose';
 
 const app = new App();
 const handleError = new HandlerError();
-const zodHandlerError = new ZodHandlerError();
 const loginFactory = LoginFactory.createLoginRouter();
 
 app.addRouter(loginFactory);
-app.errorRouter(handleError, zodHandlerError);
+app.errorRouter(handleError);
 
 chai.use(chaiHttp);
 
