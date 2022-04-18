@@ -24,7 +24,7 @@ abstract class Service<T> {
     this.model.partialUpdate(_id, obj);
 
   public delete = async (_id: number): Promise<T | null> =>
-    this.model.delete(_id);
+    this.model.delete(_id); 
 }
 
 export default Service;

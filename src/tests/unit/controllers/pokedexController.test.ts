@@ -145,5 +145,37 @@ describe('Unit Test - Pokedex Controller', () => {
         expect(result.json).to.deep.equal(pokemonUpdateInput);
       })
     });
+
+    describe('4) - Test delete Controller when use .delete', async () => {
+      before(() => {
+        Sinon.stub(pokedexController.service, 'delete').resolves(pokemonUpdateInput)
+
+        request = {
+          params: {
+            _id: 1
+          },
+        }
+
+        response = {
+          status: (status: number) => {
+            return {
+              json: (data: any) => ({ status, json: data })
+            }
+          }
+        }
+      });
+
+      after(() => {
+        Sinon.restore();
+      });
+
+      it('1) - Assert status and json of return is equal 200 and same of api', async () => {
+        const result = await pokedexController.delete(request, response);
+
+        expect(result.status).to.equal(200);
+        expect(result.json).to.be.an('object');
+        expect(result.json).to.deep.equal(pokemonUpdateInput);
+      })
+    });
   })
 })
