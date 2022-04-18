@@ -87,6 +87,12 @@ describe('Unit Test - Pokedex Controller', () => {
       before(() => {
         Sinon.stub(pokedexController.service, 'update').resolves(pokemonUpdateInput)
 
+        request = {
+          params: {
+            _id: 1
+          },
+        }
+
         response = {
           status: (status: number) => {
             return {
