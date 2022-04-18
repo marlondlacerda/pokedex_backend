@@ -3,6 +3,8 @@ import { StatusCodes } from 'http-status-codes';
 import createError from '../utils';
 import { Service } from '../services';
 
+const NOT_FOUND_MESS = 'Oh noes, there\'s nothing in here! Page not found!';
+
 abstract class Controller<T> {
   abstract route: string;
 
@@ -41,7 +43,7 @@ abstract class Controller<T> {
     if (!result) {
       throw createError(
         'notFound',
-        'Oh noes, there\'s nothing in here! Page not found!',
+        NOT_FOUND_MESS,
       );
     }
 
@@ -59,7 +61,7 @@ abstract class Controller<T> {
     if (!result) {
       throw createError(
         'notFound',
-        'Oh noes, there\'s nothing in here! Page not found!',
+        NOT_FOUND_MESS,
       );
     }
 
@@ -77,7 +79,7 @@ abstract class Controller<T> {
     if (!result) {
       throw createError(
         'notFound',
-        'Oh noes, there\'s nothing in here! Page not found!',
+        NOT_FOUND_MESS,
       );
     }
 

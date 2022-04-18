@@ -22,11 +22,9 @@ class PokedexValidation {
     } catch (err: unknown) {
       if (err instanceof ZodError) {
         const { message } = err.issues[0];
-  
-        res.status(StatusCodes.BAD_REQUEST).json({ error: message });
-      }
 
-      next(err);
+        return res.status(StatusCodes.BAD_REQUEST).json({ error: message });
+      }
     }
   };
 
@@ -42,11 +40,9 @@ class PokedexValidation {
     } catch (err: unknown) {
       if (err instanceof ZodError) {
         const { message } = err.issues[0];
-  
-        res.status(StatusCodes.BAD_REQUEST).json({ error: message });
-      }
 
-      next(err);
+        return res.status(StatusCodes.BAD_REQUEST).json({ error: message });
+      }
     }
   };
 }

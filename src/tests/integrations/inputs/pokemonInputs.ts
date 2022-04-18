@@ -139,5 +139,3 @@ export const pokemonPartialInvalidInput = {
 export const partialInvalid = {
   "name": 12345,
 }
-
-
