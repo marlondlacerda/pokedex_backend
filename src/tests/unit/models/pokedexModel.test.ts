@@ -99,4 +99,21 @@ describe('Unit Test - Pokedex Model', () => {
       expect(result).to.deep.equal(pokemonUpdateInput)
     })
   });
+
+  describe('3.1) - Testing partialUpdate of PokedexModel', () => {
+    before(() => {
+      Sinon.stub(pokedexModel.model, 'findOneAndUpdate').resolves(pokemonUpdateInput)
+    })
+
+    after(() => {
+      Sinon.restore();
+    });
+
+    it('1) - Should return the update profile', async () => {
+      const result = await pokedexModel.partialUpdate(pokemonInput._id, pokemonUpdateInput)
+
+      expect(result).to.be.an('object')
+      expect(result).to.deep.equal(pokemonUpdateInput)
+    })
+  });
 })

@@ -1,7 +1,5 @@
-.env
+build
 coverage
+node_modules
 .nyc_output
-/build
-/node_modules
 .env
-*.http
