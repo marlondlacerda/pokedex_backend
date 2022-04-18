@@ -130,7 +130,7 @@ describe('Unit Test - Pokedex Model', () => {
       const result = await pokedexModel.delete(pokemonInput._id)
 
       expect(result).to.be.an('object')
-      expect(result).to.deep.equal(pokemonUpdateInput)
+      expect(result).to.deep.equal(pokemonInput)
     })
   });
 })
