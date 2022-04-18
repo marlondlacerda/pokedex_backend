@@ -116,4 +116,21 @@ describe('Unit Test - Pokedex Model', () => {
       expect(result).to.deep.equal(pokemonUpdateInput)
     })
   });
+
+  describe('4) - Testing Delete of PokedexModel', () => {
+    before(() => {
+      Sinon.stub(pokedexModel.model, 'findOneAndDelete').resolves(pokemonInput)
+    })
+
+    after(() => {
+      Sinon.restore();
+    });
+
+    it('1) - Should return the delete profile', async () => {
+      const result = await pokedexModel.delete(pokemonInput._id)
+
+      expect(result).to.be.an('object')
+      expect(result).to.deep.equal(pokemonUpdateInput)
+    })
+  });
 })
