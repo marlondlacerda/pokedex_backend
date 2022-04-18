@@ -290,4 +290,55 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
       })
     });
   });
+
+  describe('5) - When use the method .delete to delete a pokemon', () => {
+    describe('1) - When success', () => {
+      before(async () => {
+        await chai.request(app.app)
+          .post('/pokedex')
+          .set('Authorization', await generateToken())
+          .send(pokemon.newPokemon);
+      });
+
+      it('1) - Shoud return status 200 and a pokemon deleted', async () => {
+        const response: Response = await chai
+        .request(app.app)
+        .delete(`/pokedex/3`)
+        .set('Authorization', await generateToken());
+
+        const { status, body } = response;
+
+        expect(status).to.be.equal(200);
+        expect(body).to.be.deep.equal(pokemon.newPokemon);
+
+        expect(body).to.have.property('_id');
+        expect(body).to.have.property('name');
+        expect(body).to.have.property('type');
+        expect(body).to.have.property('weight');
+        expect(body).to.have.property('height');
+        expect(body).to.have.property('description');
+        expect(body).to.have.property('baseStats');
+        expect(body).to.have.property('moves');
+        expect(body).to.have.property('image1');
+        expect(body).to.have.property('image2');
+      });
+    })
+
+    describe('2) - When fail', () => {
+      describe('1) - When try to delete with non existent _id', () => {
+        it('1) Should return status 404 and an error', async () => {
+          const response: Response = await chai
+          .request(app.app)
+          .delete(`/pokedex/9999`)
+          .set('Authorization', await generateToken());
+
+          const { status, body } = response;
+
+          expect(status).to.be.equal(404);
+          expect(body).to.have.property('error');
+          expect(body.error).to.equal('Oh noes, there\'s nothing in here! Page not found!');
+        });
+      });
+    });
+  });
 });
