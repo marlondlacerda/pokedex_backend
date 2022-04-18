@@ -9,6 +9,8 @@ import * as pokemon from './inputs';
 import App from '../../app';
 import { PokedexFactory, LoginFactory } from '../../Factories'
 import { HandlerError, ZodHandlerError } from '../../middlewares';
+import pokedexArray from './matchs/pokedexArray';
+import { pokemonPartialUpdated } from './matchs';
 
 const app = new App();
 const handleError = new HandlerError();
@@ -65,12 +67,7 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
     });
   });
 
-  describe('2) -When you use the method .post to add a new pokemon', () => {
-    // delete collection on before start test
-    before(async () => {
-      await mongoose.connection.db.collection('pokedex').drop();
-    });
-
+  describe('2) -When use the method .post to add a new pokemon', () => {
     it('1) - Shoud return status 201 and a new pokemon', async () => {
       const response: Response = await chai
         .request(app.app)
@@ -123,7 +120,11 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
     });
   });
 
-  describe('3) - When you use the method .get to getAll Data of Pokemons', () => {
+  describe('3) - When use the method .get to getAll Data of Pokemons', () => {
+    before(async () => {
+      mongoose.connection.db.collection('pokedex').deleteOne({ _id: 3});
+    });
+
     describe('1) - When success', () => {
       it('1) - Shoud return status 200 a an array of pokemons', async () => {
         
@@ -135,21 +136,23 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
 
         expect(status).to.be.equal(200);
         expect(body).to.be.an('array');
+        expect(body).to.have.lengthOf(2);
+        expect(body).to.be.deep.equal(pokedexArray);
       });
     })
   })
 
-  describe('4) - When you use the method .put to update a pokemon', () => {
+  describe('4.1) - When use the method .put to update a pokemon', () => {
     describe('1) - When success', () => {
-      beforeEach(async () => {
+      after(async () => {
         await  mongoose.connection.db.collection('pokedex')
-          .findOneAndReplace({ _id: 1 }, pokemon.newPokemon)
+          .findOneAndReplace({ _id: 2 }, pokedexArray[1])
       });
 
       it('1) - Shoud return status 200 and a pokemon updated', async () => {
         const response: Response = await chai
         .request(app.app)
-        .put(`/pokedex/${pokemon.pokemonUpdateInput._id}`)
+        .put(`/pokedex/2`)
         .set('Authorization', await generateToken())
         .send(pokemon.pokemonUpdateInput);
 
@@ -172,20 +175,11 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
     })
 
     describe('2) - When fail', () => {
-      beforeEach(async () => {
-        await  mongoose.connection.db.collection('pokedex')
-          .findOneAndReplace({ _id: 1 }, pokemon.newPokemon)
-      });
-
-      after(async () => {
-        await mongoose.connection.db.collection('pokedex').drop();
-      });
-
       describe('1) - When try to change _id of pokemon', () => {
         it('1) - Shoud return status 400 and an error', async () => {
           const response: Response = await chai
           .request(app.app)
-          .put(`/pokedex/${pokemon.newPokemon._id}`)
+          .put(`/pokedex/2`)
           .set('Authorization', await generateToken())
           .send(pokemon.pokemonInvalidUpdateInput);
 
@@ -212,6 +206,89 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
           expect(body.error).to.equal('Oh noes, there\'s nothing in here! Page not found!');
         });
       });
+    });
+  });
+
+  describe('4.2) - When use the method .patch to update a pokemon', () => {
+    describe('1) - When success', () => {
+      after(async () => {
+        await  mongoose.connection.db.collection('pokedex')
+          .findOneAndReplace({ _id: 2 }, pokedexArray[1])
+      });
+
+      it('1) - Shoud return status 200 and a pokemon updated', async () => {
+        const response: Response = await chai
+        .request(app.app)
+        .patch(`/pokedex/2`)
+        .set('Authorization', await generateToken())
+        .send(pokemon.pokemonPartialInput);
+
+        const { status, body } = response;
+
+        expect(status).to.be.equal(200);
+        expect(body).to.be.deep.equal(pokemonPartialUpdated);
+
+        expect(body).to.have.property('_id');
+        expect(body).to.have.property('name');
+        expect(body).to.have.property('type');
+        expect(body).to.have.property('weight');
+        expect(body).to.have.property('height');
+        expect(body).to.have.property('description');
+        expect(body).to.have.property('baseStats');
+        expect(body).to.have.property('moves');
+        expect(body).to.have.property('image1');
+        expect(body).to.have.property('image2');
+      });
+    })
+
+    describe('2) - When fail', () => {
+      describe('1) - When try to change _id of pokemon', () => {
+        it('1) - Shoud return status 400 and an error', async () => {
+          const response: Response = await chai
+          .request(app.app)
+          .patch(`/pokedex/2`)
+          .set('Authorization', await generateToken())
+          .send(pokemon.pokemonPartialInvalidInput);
+
+          const { status, body } = response;
+
+          expect(status).to.be.equal(400);
+          expect(body).to.have.property('error');
+          expect(body.error).to.equal('_id is immutable');
+        });
+      });
+
+      describe('2 - When try to change with non existent _id', () => {
+        it('1) Should return status 404 and an error', async () => {
+          const response: Response = await chai
+          .request(app.app)
+          .patch(`/pokedex/9999`)
+          .set('Authorization', await generateToken())
+          .send(pokemon.pokemonPartialInput);
+
+          const { status, body } = response;
+
+          expect(status).to.be.equal(404);
+          expect(body).to.have.property('error');
+          expect(body.error).to.equal('Oh noes, there\'s nothing in here! Page not found!');
+        });
+      });
+
+      describe('3) - When try to change with invalid data', () => {
+        it('1) Should return status 400 and an error', async () => {
+          const response: Response = await chai
+          .request(app.app)
+          .patch(`/pokedex/2`)
+          .set('Authorization', await generateToken())
+          .send(pokemon.partialInvalid);
+
+          const { status, body } = response;
+
+          expect(status).to.be.equal(400);
+          expect(body).to.have.property('error');
+          expect(body.error).to.equal('Name must be a string');
+        });
+      })
     });
   });
 });
