@@ -10,6 +10,7 @@ class PokedexRouter<T> {
     this.router = Router();
   }
 
+  // eslint-disable-next-line max-lines-per-function
   public addRoute(
     controller: Controller<T>,
     validation: PokedexValidation,
@@ -19,7 +20,7 @@ class PokedexRouter<T> {
     this.router.post(
       route, 
       authenticator.authMiddleware,
-      validation.bodyPokedex, 
+      validation.bodyPokedexFull, 
       controller.create,
     );
 
@@ -28,8 +29,15 @@ class PokedexRouter<T> {
     this.router.put(
       `${route}/:id`,
       authenticator.authMiddleware,
-      validation.bodyPokedex,
+      validation.bodyPokedexFull,
       controller.update,
+    );
+
+    this.router.patch(
+      `${route}/:id`,
+      authenticator.authMiddleware,
+      validation.bodyPokedexPartial,
+      controller.partialUpdate,
     );
   }
 }
