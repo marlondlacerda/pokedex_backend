@@ -30,7 +30,31 @@ describe('Unit Test - Pokedex Controller', () => {
     let request: any = {};
     let response: any = {};
 
-    describe("1) - Test read Controller when use .get", async () => {
+    describe("1) - Test create Controller when use .post", async () => {
+      before(() => {
+        Sinon.stub(pokedexController.service, 'create').resolves(pokemonInput)
+
+        response = {
+          status: (status: number) => {
+            return {
+              json: (data: any) => ({ status, json: data })
+            }
+          }
+        }
+      });
+
+      after(() => {
+        Sinon.restore();
+      });
+      
+      it('1) - Assert status and json of return is equal 201 and same of api', async () => {
+        const result = await pokedexController.create(request, response);
+        expect(result.status).to.equal(201);
+        expect(result.json).to.be.an('object');
+        expect(result.json).to.deep.equal(pokemonInput);
+      })
+    })
+    describe("2.1) - Test read Controller when use .get", async () => {
       before(() => {
         Sinon.stub(pokedexController.service, 'read').resolves(pokeApi)
 
@@ -58,10 +82,11 @@ describe('Unit Test - Pokedex Controller', () => {
       })
     })
 
-    describe("2) - Test create Controller when use .post", async () => {
+    describe("2.2) - Test read Controller when use .get with id", async () => {
       before(() => {
-        Sinon.stub(pokedexController.service, 'create').resolves(pokemonInput)
+        Sinon.stub(pokedexController.service, 'readOne').resolves(pokeApi[0])
 
+        request = { params: { id: 1 } };
         response = {
           status: (status: number) => {
             return {
@@ -70,18 +95,19 @@ describe('Unit Test - Pokedex Controller', () => {
           }
         }
       });
-
+  
       after(() => {
         Sinon.restore();
       });
-      
-      it('1) - Assert status and json of return is equal 201 and same of api', async () => {
-        const result = await pokedexController.create(request, response);
-        expect(result.status).to.equal(201);
+
+      it('1) - Assert status and json of return is equal 200 and same of api', async () => {
+        const result = await pokedexController.readOne(request as Request, response);
+
+        expect(result.status).to.equal(200);
         expect(result.json).to.be.an('object');
-        expect(result.json).to.deep.equal(pokemonInput);
+        expect(result.json).to.deep.equal(pokeApi[0]);
       })
-    })
+    });
 
     describe("3.1) - Test update Controller when use .put", async () => {
       before(() => {
