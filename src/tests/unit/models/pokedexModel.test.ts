@@ -3,7 +3,7 @@ import Sinon from "sinon"
 
 import { PokedexModel } from "../../../models"
 import pokeApi, { Pokemon } from "../mocks"
-import { pokemonInput, pokemonUpdateInput } from "../inputs/pokemonInputs"
+import { pokemonInput, pokemonPartialUpdateInput, pokemonUpdateInput } from "../inputs/pokemonInputs"
 
 describe('Unit Test - Pokedex Model', () => {
   const pokedexModel = new PokedexModel()
@@ -110,7 +110,7 @@ describe('Unit Test - Pokedex Model', () => {
     });
 
     it('1) - Should return the update profile', async () => {
-      const result = await pokedexModel.partialUpdate(pokemonInput._id, pokemonUpdateInput)
+      const result = await pokedexModel.partialUpdate(pokemonInput._id, pokemonPartialUpdateInput)
 
       expect(result).to.be.an('object')
       expect(result).to.deep.equal(pokemonUpdateInput)
