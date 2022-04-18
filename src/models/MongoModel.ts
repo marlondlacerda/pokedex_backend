@@ -12,6 +12,13 @@ abstract class MongoModel<T> implements Model<T> {
 
   update = async (_id: number, obj: T): Promise<T | null> =>
     this.model.findByIdAndUpdate(_id, obj, { new: true, lean: true });
+
+  partialUpdate = async (_id: number, obj: T): Promise<T | null> =>
+    this.model.findByIdAndUpdate(
+      _id,
+      { $set: obj },
+      { new: true, lean: true },
+    );
 }
 
 export default MongoModel;
