@@ -32,6 +32,21 @@ abstract class Controller<T> {
     return res.status(StatusCodes.OK).json(result);
   };
 
+  public readOne = async (
+    req: Request<{ id: number; }>,
+    res: Response,
+  ): Promise<Response> => {
+    const { id } = req.params;
+
+    const result = await this.service.readOne(id);
+
+    if (!result) {
+      throw createError('notFound', NOT_FOUND_MESS);
+    }
+
+    return res.status(StatusCodes.OK).json(result);
+  };
+
   public update = async (
     req: Request,
     res: Response,

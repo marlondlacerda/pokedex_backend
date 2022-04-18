@@ -101,7 +101,7 @@ describe('Unit Test - Pokedex Controller', () => {
       });
 
       it('1) - Assert status and json of return is equal 200 and same of api', async () => {
-        const result = await pokedexController.readOne(request as Request, response);
+        const result = await pokedexController.readOne(request, response);
 
         expect(result.status).to.equal(200);
         expect(result.json).to.be.an('object');

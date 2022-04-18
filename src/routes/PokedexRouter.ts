@@ -26,6 +26,8 @@ class PokedexRouter<T> {
 
     this.router.get(route, controller.read);
 
+    this.router.get(`${route}/:id`, controller.readOne);
+
     this.router.put(
       `${route}/:id`,
       authenticator.authMiddleware,
