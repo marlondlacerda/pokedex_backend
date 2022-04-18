@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import 'express-async-errors';
 
-import { HandlerError, ZodHandlerError } from './middlewares';
+import { HandlerError } from './middlewares';
 import Connection from './models/config';
 
 require('dotenv/config');
@@ -51,10 +51,8 @@ class App {
 
   public errorRouter(
     handleError: HandlerError,
-    zodError: ZodHandlerError,
   ) {
     this.app.use(handleError.handle);
-    this.app.use(zodError.zodHandler);
   }
 }
 
