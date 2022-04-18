@@ -18,7 +18,7 @@ class LoginService extends Service<UserLogin> {
   readonly login = async (body: UserLogin): Promise<string> => {
     const { email, password } = body;
 
-    const result = await this.model.readOne(email);
+    const result = await this.model.findEmail(email);
 
     if (!result) {
       throw createError('unauthorized', 'Incorrect email or password');

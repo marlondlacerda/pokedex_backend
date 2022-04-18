@@ -100,6 +100,9 @@ export class PokedexModel extends MongoModel<Pokedex> {
   ) {
     super(model);
   }
+
+  readOne = async (_id: number): Promise<Pokedex | null> =>
+    this.model.findOne({ _id }, {}, { lean: true });
 }
 
 export default PokedexModel;
