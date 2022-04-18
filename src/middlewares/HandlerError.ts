@@ -23,16 +23,15 @@ class HandlerError {
   ) {
     // Error with library jsonwebtoken
     if (err.name.includes('JsonWebTokenError')) {
-      return res
-        .status(401)
-        .json({ error: 'Invalid token' });
+      return res.status(401).json({ error: 'Invalid token' });
     }
 
-    // Error with library moongose
+    // Errors with library moongose
     if (err.message.includes('duplicate key')) {
-      return res
-        .status(400)
-        .json({ error: 'Duplicate _id' });
+      return res.status(400).json({ error: 'Duplicate _id' });
+    }
+    if (err.message.includes('immutable field \'_id\'')) {
+      return res.status(400).json({ error: '_id is immutable' });
     }
 
     /* istanbul ignore next */

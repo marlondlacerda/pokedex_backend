@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import createError from '../utils';
 import { Service } from '../services';
 
 abstract class Controller<T> {
@@ -25,6 +26,24 @@ abstract class Controller<T> {
     res: Response,
   ): Promise<Response> => {
     const result = await this.service.read();
+
+    return res.status(StatusCodes.OK).json(result);
+  };
+
+  public update = async (
+    req: Request,
+    res: Response,
+  ): Promise<typeof res> => {
+    const { params, body } = req;
+
+    const result = await this.service.update(Number(params.id), body);
+
+    if (!result) {
+      throw createError(
+        'notFound',
+        'Oh noes, there\'s nothing in here! Page not found!',
+      );
+    }
 
     return res.status(StatusCodes.OK).json(result);
   };

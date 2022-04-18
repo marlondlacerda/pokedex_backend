@@ -24,6 +24,13 @@ class PokedexRouter<T> {
       validation.bodyPokedex, 
       controller.create,
     );
+
+    this.router.put(
+      `${route}/:id`,
+      authenticator.authMiddleware,
+      validation.bodyPokedex,
+      controller.update,
+    );
   }
 }
 
