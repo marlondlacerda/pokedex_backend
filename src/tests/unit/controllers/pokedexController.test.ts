@@ -83,7 +83,7 @@ describe('Unit Test - Pokedex Controller', () => {
       })
     })
 
-    describe("3) - Test update Controller when use .put", async () => {
+    describe("3.1) - Test update Controller when use .put", async () => {
       before(() => {
         Sinon.stub(pokedexController.service, 'update').resolves(pokemonUpdateInput)
 
@@ -114,7 +114,7 @@ describe('Unit Test - Pokedex Controller', () => {
       })
     });
 
-    describe('3.1) - Test partialUpdate Controller when use .patch', async () => {
+    describe('3.2) - Test partialUpdate Controller when use .patch', async () => {
       before(() => {
         Sinon.stub(pokedexController.service, 'partialUpdate').resolves(pokemonUpdateInput)
 

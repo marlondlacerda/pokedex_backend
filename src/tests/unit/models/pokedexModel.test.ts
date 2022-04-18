@@ -83,7 +83,7 @@ describe('Unit Test - Pokedex Model', () => {
     })
   })
 
-  describe('3) - Testing Update of PokedexModel', () => {
+  describe('3.1) - Testing Update of PokedexModel', () => {
     before(() => {
       Sinon.stub(pokedexModel.model, 'findOneAndUpdate').resolves(pokemonUpdateInput)
     })
@@ -100,7 +100,7 @@ describe('Unit Test - Pokedex Model', () => {
     })
   });
 
-  describe('3.1) - Testing partialUpdate of PokedexModel', () => {
+  describe('3.2) - Testing partialUpdate of PokedexModel', () => {
     before(() => {
       Sinon.stub(pokedexModel.model, 'findOneAndUpdate').resolves(pokemonUpdateInput)
     })

@@ -1,37 +1,37 @@
-export const newPokemon =   {
-  "_id": 1,
-  "name": "Bulbasaur",
+export const newPokemon =     {
+  "_id": 3,
+  "name": "Venusaur",
   "type": [
     "Grass",
     "Poison"
   ],
   "weight": {
-    "value": 6.9,
+    "value": 100.0,
     "measurement": "kg"
   },
   "height": {
-    "value": 0.7,
+    "value": 2.0,
     "measurement": "m"
   },
-  "description": "There is a plant seed on its back right from the day this POKéMON is born. The seed slowly grows larger.",
+  "description": "A bewitching aroma wafts from its flower. The fragrance becalms those engaged in a battle.",
   "baseStats": {
-    "hp": 45,
-    "atk": 49,
-    "def": 49,
-    "satk": 65,
-    "sdef": 65,
-    "spd": 45
+    "hp": 80,
+    "atk": 82,
+    "def": 83,
+    "satk": 100,
+    "sdef": 100,
+    "spd": 80
   },
   "moves": {
-    "skill1": "Growl",
-    "skill2": "Tackle"
+    "skill1": "Double-Edge",
+    "skill2": "Solar Beam"
   },
-  "image1": "https://archives.bulbagarden.net/media/upload/2/21/001Bulbasaur.png",
-  "image2": "https://archives.bulbagarden.net/media/upload/7/76/Spr_5b_001.png"
+  "image1": "https://archives.bulbagarden.net/media/upload/a/ae/003Venusaur.png",
+  "image2": "https://archives.bulbagarden.net/media/upload/6/68/Spr_5b_003_m.png"
 }
 
 export const invalidPokemon = {
-  "_id": 4,
+  "_id": 3,
   "name": 15,
   "type": [
     "Grass",
@@ -63,7 +63,7 @@ export const invalidPokemon = {
 }
 
 export const pokemonUpdateInput = {
-  "_id": 1,
+  "_id": 2,
   "name": "Charizard",
   "type": [
     "Fire",
@@ -94,8 +94,13 @@ export const pokemonUpdateInput = {
   "image2": "https://archives.bulbagarden.net/media/upload/6/68/Spr_5b_006_m.png"
 }
 
+export const pokemonPartialInput = {
+  "name": "Pokessauro",
+}
+
+
 export const pokemonInvalidUpdateInput = {
-  "_id": 50,
+  "_id": 3,
   "name": "Charizard",
   "type": [
     "Fire",
@@ -125,3 +130,14 @@ export const pokemonInvalidUpdateInput = {
   "image1": "https://archives.bulbagarden.net/media/upload/6/68/Spr_5b_006_m.png",
   "image2": "https://archives.bulbagarden.net/media/upload/6/68/Spr_5b_006_m.png"
 }
+
+export const pokemonPartialInvalidInput = {
+  "_id": 3,
+  "name": "Pokessauro",
+}
+
+export const partialInvalid = {
+  "name": 12345,
+}
+
+
