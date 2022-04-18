@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { ZodError } from 'zod';
 import { pokedexWithIDAndSchema,
   partialPokedexSchema,
 } from '../schemas/PokedexSchema';
@@ -18,10 +19,14 @@ class PokedexValidation {
       this.fullSchema.parse(req.body);
 
       next();
-    } catch (err: any) {
-      const { message } = err.issues[0];
+    } catch (err: unknown) {
+      if (err instanceof ZodError) {
+        const { message } = err.issues[0];
+  
+        res.status(StatusCodes.BAD_REQUEST).json({ error: message });
+      }
 
-      res.status(StatusCodes.BAD_REQUEST).json({ error: message });
+      next(err);
     }
   };
 
@@ -34,10 +39,14 @@ class PokedexValidation {
       this.partialSchema.parse(req.body);
 
       next();
-    } catch (err: any) {
-      const { message } = err.issues[0];
+    } catch (err: unknown) {
+      if (err instanceof ZodError) {
+        const { message } = err.issues[0];
+  
+        res.status(StatusCodes.BAD_REQUEST).json({ error: message });
+      }
 
-      res.status(StatusCodes.BAD_REQUEST).json({ error: message });
+      next(err);
     }
   };
 }
