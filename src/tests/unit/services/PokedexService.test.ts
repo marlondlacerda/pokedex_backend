@@ -10,7 +10,34 @@ describe('Unit Test - Pokedex Service', () => {
   const pokedexModel = new PokedexModel();
   const pokedexService = new PokedexService(pokedexModel)
 
-  describe('1) - Testing getAll Pokedex Service', () => {
+  describe('1) - Testing Create of Pokedex Service', () => {
+    before(() => {
+      Sinon.stub(pokedexService.model, 'create').callsFake(Pokemon.create)
+    })
+
+    after(() => {
+      Sinon.restore();
+      pokeApi.pop()
+    });
+
+    describe('1) - Before being tested', () => {
+      it('1) - Should return 2 records', async () => {
+        expect(pokeApi.length).to.be.equal(2)
+      })
+    })
+
+    describe('2) - After being tested', () => {
+      it('1) - Should return 3 records', async () => {
+        const result = await pokedexService.create(pokemonInput)
+
+        expect(pokeApi.length).to.be.equal(3)
+        expect(result).to.be.an('object')
+        expect(result).to.deep.equal(pokeApi[2])
+      })
+    })
+  })
+
+  describe('2.1) - Testing getAll Pokedex Service', () => {
     before(() => {
       Sinon.stub(pokedexService.model, 'read').resolves(pokeApi)
     })
@@ -62,32 +89,22 @@ describe('Unit Test - Pokedex Service', () => {
     })
   })
 
-  describe('2) - Testing Create of Pokedex Service', () => {
+  describe('2.2) - Testing getOne Pokedex Service', () => {
     before(() => {
-      Sinon.stub(pokedexService.model, 'create').callsFake(Pokemon.create)
+      Sinon.stub(pokedexService.model, 'readOne').resolves(pokeApi[0])
     })
 
     after(() => {
       Sinon.restore();
-      pokeApi.pop()
     });
 
-    describe('1) - Before being tested', () => {
-      it('1) - Should return 2 records', async () => {
-        expect(pokeApi.length).to.be.equal(2)
-      })
-    })
+    it('1) - Assert your return is an Object', async () => {
+      const result = await pokedexService.readOne(pokeApi[0]._id)
 
-    describe('2) - After being tested', () => {
-      it('1) - Should return 3 records', async () => {
-        const result = await pokedexService.create(pokemonInput)
-
-        expect(pokeApi.length).to.be.equal(3)
-        expect(result).to.be.an('object')
-        expect(result).to.deep.equal(pokeApi[2])
-      })
+      expect(result).to.be.an('object')
+      expect(result).to.deep.equal(pokeApi[0])
     })
-  })
+  });
 
   describe('3.1) - Testing Update of Pokedex Service', () => {
     before(() => {
