@@ -12,6 +12,9 @@ abstract class Service<T> {
 
   public read = async (): Promise<T | T[] | ServiceError> => this.model.read();
 
+  public readOne = async (_id: number): Promise<T | null | ServiceError> =>
+    this.model.readOne(_id);
+
   public create = async (obj: T): Promise<T> => this.model.create(obj);
 
   public update = async (_id: number, obj: T): Promise<T | null> => {
