@@ -10,6 +10,8 @@ const pokeSchema = new Schema<PokedexDocument>({
   _id: {
     type: Number,
     required: true,
+    unique: true,
+    index: true,
   },
   name: {
     type: String,
