@@ -19,6 +19,9 @@ abstract class Service<T> {
 
     return result;
   };
+
+  public partialUpdate = async (_id: number, obj: T): Promise<T | null> =>
+    this.model.partialUpdate(_id, obj);
 }
 
 export default Service;
