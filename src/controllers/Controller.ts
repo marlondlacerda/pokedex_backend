@@ -47,6 +47,24 @@ abstract class Controller<T> {
 
     return res.status(StatusCodes.OK).json(result);
   };
+
+  public partialUpdate = async (
+    req: Request,
+    res: Response,
+  ): Promise<typeof res> => {
+    const { params, body } = req;
+
+    const result = await this.service.partialUpdate(Number(params.id), body);
+
+    if (!result) {
+      throw createError(
+        'notFound',
+        'Oh noes, there\'s nothing in here! Page not found!',
+      );
+    }
+
+    return res.status(StatusCodes.OK).json(result);
+  };
 }
 
 export default Controller;

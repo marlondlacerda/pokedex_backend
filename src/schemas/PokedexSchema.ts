@@ -59,6 +59,8 @@ const pokedexWithIDAndSchema = pokedexSchema.extend({
   _id: numberSchema('_id'),
 });
 
+export const partialPokedexSchema = pokedexSchema.partial();
+
 type Pokedex = z.infer<typeof pokedexSchema>;
 
 export default Pokedex;
