@@ -20,6 +20,7 @@ class PokedexValidation {
 
       next();
     } catch (err: unknown) {
+      /* istanbul ignore next */
       if (err instanceof ZodError) {
         const { message } = err.issues[0];
 
@@ -38,6 +39,7 @@ class PokedexValidation {
 
       next();
     } catch (err: unknown) {
+      /* istanbul ignore next */
       if (err instanceof ZodError) {
         const { message } = err.issues[0];
 

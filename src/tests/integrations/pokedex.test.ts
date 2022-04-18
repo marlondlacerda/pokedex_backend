@@ -119,7 +119,7 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
     });
   });
 
-  describe('3) - When use the method .get to getAll Data of Pokemons', () => {
+  describe('3.1) - When use the method .get to getAll Data of Pokemons', () => {
     before(async () => {
       mongoose.connection.db.collection('pokedex').deleteOne({ _id: 3});
     });
@@ -140,6 +140,35 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
       });
     })
   })
+
+  describe('3.2) - When use the method .get to get a pokemon by _id', () => {
+    describe('1) - When success', () => {
+      it('1) - Shoud return status 200 a a pokemon', async () => {
+        const response: Response = await chai
+        .request(app.app)
+        .get(`/pokedex/2`)
+        
+        const { status, body } = response;
+
+        expect(status).to.be.equal(200);
+        expect(body).to.be.deep.equal(pokedexArray[1]);
+      });
+    })
+
+    describe('2) - When fail', () => {
+      it('1) - Shoud return status 404 and a error message', async () => {
+        const response: Response = await chai
+        .request(app.app)
+        .get(`/pokedex/999`)
+        
+        const { status, body } = response;
+
+        expect(status).to.be.equal(404);
+        expect(body).to.have.property('error');
+        expect(body.error).to.equal('Oh noes, there\'s nothing in here! Page not found!');
+      });
+    })
+  });
 
   describe('4.1) - When use the method .put to update a pokemon', () => {
     describe('1) - When success', () => {

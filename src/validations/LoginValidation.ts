@@ -1,4 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { ZodError } from 'zod';
 import { UserLoginSchema as ZodSchema } from '../schemas/UserLoginSchema';
 
 class LoginValidation {
@@ -9,8 +11,18 @@ class LoginValidation {
     res: Response,
     next: NextFunction,
   ) => {
-    this.schema.parse(req.body);
-    next();
+    try {
+      this.schema.parse(req.body);
+
+      next();
+    } catch (err: unknown) {
+      /* istanbul ignore next */
+      if (err instanceof ZodError) {
+        const { message } = err.issues[0];
+
+        return res.status(StatusCodes.BAD_REQUEST).json({ error: message });
+      }
+    }
   };
 }
 

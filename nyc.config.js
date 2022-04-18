@@ -5,11 +5,7 @@ module.exports = {
     'src/models/config',
   ],
   // for all files use ["src/**/*"]
-  include: [
-    'src/models',
-    'src/services',
-    'src/controllers',
-  ],
+  include: ["src/**/*"],
   reporter: [
     'lcov',
     'text',
