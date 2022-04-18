@@ -86,7 +86,7 @@ describe('Unit Test - Pokedex Model', () => {
 
   describe('2.2 - Test getById PokedexModel', () => {
     before(() => {
-      Sinon.stub(pokedexModel.model, 'findById').resolves(pokeApi[0])
+      Sinon.stub(pokedexModel.model, 'findOne').resolves(pokeApi[0])
     })
 
     after(() => {
@@ -106,27 +106,10 @@ describe('Unit Test - Pokedex Model', () => {
       expect(result).to.have.property('_id')
       expect(result).to.have.property('name')
       expect(result).to.have.property('type')
-
       expect(result).to.have.property('height')
-      expect(result.height).to.have.property('value')
-      expect(result.height).to.have.property('measurement')
-
       expect(result).to.have.property('weight')
-      expect(result.weight).to.have.property('value')
-      expect(result.weight).to.have.property('measurement')
-
       expect(result).to.have.property('baseStats')
-      expect(result.baseStats).to.have.property('hp')
-      expect(result.baseStats).to.have.property('atk')
-      expect(result.baseStats).to.have.property('def')
-      expect(result.baseStats).to.have.property('satk')
-      expect(result.baseStats).to.have.property('sdef')
-      expect(result.baseStats).to.have.property('spd')
-
       expect(result).to.have.property('moves')
-      expect(result.moves).to.have.property('skill1')
-      expect(result.moves).to.have.property('skill2')
-
       expect(result).to.have.property('image1')
       expect(result).to.have.property('image2')
     })

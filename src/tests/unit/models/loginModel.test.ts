@@ -17,7 +17,7 @@ describe('Unit Test - Login Model', () => {
     });
 
     it('1) - Assert your return is an Array, and length is the same as mock', async () => {
-      const result = await loginModel.readOne(userInput.email)
+      const result = await loginModel.findEmail(userInput.email)
 
       expect(result).to.deep.equal(userInput);
     })

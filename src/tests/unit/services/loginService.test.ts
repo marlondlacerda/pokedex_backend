@@ -15,7 +15,7 @@ describe('Unit Test - Login Service', () => {
 
   describe('1) - Testing readOne Login Service', () => {
     before(() => {
-      Sinon.stub(loginService.model, 'readOne').callsFake(Login.readOne);
+      Sinon.stub(loginService.model, 'findEmail').callsFake(Login.readOne);
     })
 
     after(() => {
