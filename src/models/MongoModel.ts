@@ -21,7 +21,7 @@ abstract class MongoModel<T> implements Model<T> {
     );
 
   delete = async (_id: number): Promise<T | null> =>
-    this.model.findByIdAndDelete(_id);
+    this.model.findByIdAndDelete(_id, { lean: true });
 }
 
 export default MongoModel;

@@ -39,6 +39,12 @@ class PokedexRouter<T> {
       validation.bodyPokedexPartial,
       controller.partialUpdate,
     );
+
+    this.router.delete(
+      `${route}/:id`,
+      authenticator.authMiddleware,
+      controller.delete,
+    );
   }
 }
 

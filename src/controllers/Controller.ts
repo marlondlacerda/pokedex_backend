@@ -65,6 +65,24 @@ abstract class Controller<T> {
 
     return res.status(StatusCodes.OK).json(result);
   };
+
+  public delete = async (
+    req: Request,
+    res: Response,
+  ): Promise<typeof res> => {
+    const { params } = req;
+
+    const result = await this.service.delete(Number(params.id));
+
+    if (!result) {
+      throw createError(
+        'notFound',
+        'Oh noes, there\'s nothing in here! Page not found!',
+      );
+    }
+
+    return res.status(StatusCodes.OK).json(result);
+  };
 }
 
 export default Controller;
