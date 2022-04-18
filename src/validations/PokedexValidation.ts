@@ -1,15 +1,28 @@
 import { NextFunction, Request, Response } from 'express';
-import { pokedexWithIDAndSchema as ZodSchema } from '../schemas/PokedexSchema';
+import { pokedexWithIDAndSchema,
+  partialPokedexSchema,
+} from '../schemas/PokedexSchema';
 
 class PokedexValidation {
-  private schema = ZodSchema;
+  private fullSchema = pokedexWithIDAndSchema;
 
-  readonly bodyPokedex = async (
+  private partialSchema = partialPokedexSchema;
+
+  readonly bodyPokedexFull = async (
     req: Request<unknown>,
     res: Response,
     next: NextFunction,
   ) => {
-    this.schema.parse(req.body);
+    this.fullSchema.parse(req.body);
+    next();
+  };
+
+  readonly bodyPokedexPartial = async (
+    req: Request<unknown>,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    this.partialSchema.parse(req.body);
     next();
   };
 }
