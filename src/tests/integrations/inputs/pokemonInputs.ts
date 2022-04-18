@@ -61,3 +61,67 @@ export const invalidPokemon = {
   "image1": "https://archives.bulbagarden.net/media/upload/7/73/002Ivysaur.png",
   "image2": "https://archives.bulbagarden.net/media/upload/e/e1/Spr_5b_002.png" 
 }
+
+export const pokemonUpdateInput = {
+  "_id": 1,
+  "name": "Charizard",
+  "type": [
+    "Fire",
+    "Flying"
+  ],
+  "weight": {
+    "value": 90.5,
+    "measurement": "kg"
+  },
+  "height": {
+    "value": 1.7,
+    "measurement": "m"
+  },
+  "description": "It breathes fire of such great heat that it melts anything. Its fire burns weakly if it is cooled.",
+  "baseStats": {
+    "hp": 78,
+    "atk": 84,
+    "def": 78,
+    "satk": 109,
+    "sdef": 85,
+    "spd": 100
+  },
+  "moves": {
+    "skill1": "Flamethrower",
+    "skill2": "Fire Blast"
+  },
+  "image1": "https://archives.bulbagarden.net/media/upload/6/68/Spr_5b_006_m.png",
+  "image2": "https://archives.bulbagarden.net/media/upload/6/68/Spr_5b_006_m.png"
+}
+
+export const pokemonInvalidUpdateInput = {
+  "_id": 50,
+  "name": "Charizard",
+  "type": [
+    "Fire",
+    "Flying"
+  ],
+  "weight": {
+    "value": 90.5,
+    "measurement": "kg"
+  },
+  "height": {
+    "value": 1.7,
+    "measurement": "m"
+  },
+  "description": "It breathes fire of such great heat that it melts anything. Its fire burns weakly if it is cooled.",
+  "baseStats": {
+    "hp": 78,
+    "atk": 84,
+    "def": 78,
+    "satk": 109,
+    "sdef": 85,
+    "spd": 100
+  },
+  "moves": {
+    "skill1": "Flamethrower",
+    "skill2": "Fire Blast"
+  },
+  "image1": "https://archives.bulbagarden.net/media/upload/6/68/Spr_5b_006_m.png",
+  "image2": "https://archives.bulbagarden.net/media/upload/6/68/Spr_5b_006_m.png"
+}

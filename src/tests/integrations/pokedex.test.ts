@@ -24,6 +24,17 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
+const generateToken = async (): Promise<string> => {
+  const response: Response = await chai
+  .request(app.app)
+  .post(`/login`)
+  .send(pokemon.validUser)
+
+  const { token } = response.body;
+
+  return token;
+}
+
 describe('Integration Test - Endpoint "/pokedex"', () => {
   describe('1) - When try to request with invalid token or no token',() =>{
     it('1) - Shoud return error when token is invalid', async () => {
@@ -54,18 +65,7 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
     });
   });
 
-  describe('2) - When route use .post to add a new pokemon', () => {
-    const generateToken = async (): Promise<string> => {
-      const response: Response = await chai
-      .request(app.app)
-      .post(`/login`)
-      .send(pokemon.validUser)
-
-      const { token } = response.body;
-
-      return token;
-    }
-
+  describe('2) -When you use the method .post to add a new pokemon', () => {
     // delete collection on before start test
     before(async () => {
       await mongoose.connection.db.collection('pokedex').drop();
@@ -123,7 +123,7 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
     });
   });
 
-  describe('3) - When route use .get', () => {
+  describe('3) - When you use the method .get to getAll Data of Pokemons', () => {
     describe('1) - When success', () => {
       it('1) - Shoud return status 200 a an array of pokemons', async () => {
         
@@ -138,4 +138,80 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
       });
     })
   })
-})
+
+  describe('4) - When you use the method .put to update a pokemon', () => {
+    describe('1) - When success', () => {
+      beforeEach(async () => {
+        await  mongoose.connection.db.collection('pokedex')
+          .findOneAndReplace({ _id: 1 }, pokemon.newPokemon)
+      });
+
+      it('1) - Shoud return status 200 and a pokemon updated', async () => {
+        const response: Response = await chai
+        .request(app.app)
+        .put(`/pokedex/${pokemon.pokemonUpdateInput._id}`)
+        .set('Authorization', await generateToken())
+        .send(pokemon.pokemonUpdateInput);
+
+        const { status, body } = response;
+
+        expect(status).to.be.equal(200);
+        expect(body).to.be.deep.equal(pokemon.pokemonUpdateInput);
+
+        expect(body).to.have.property('_id');
+        expect(body).to.have.property('name');
+        expect(body).to.have.property('type');
+        expect(body).to.have.property('weight');
+        expect(body).to.have.property('height');
+        expect(body).to.have.property('description');
+        expect(body).to.have.property('baseStats');
+        expect(body).to.have.property('moves');
+        expect(body).to.have.property('image1');
+        expect(body).to.have.property('image2');
+      });
+    })
+
+    describe('2) - When fail', () => {
+      beforeEach(async () => {
+        await  mongoose.connection.db.collection('pokedex')
+          .findOneAndReplace({ _id: 1 }, pokemon.newPokemon)
+      });
+
+      after(async () => {
+        await mongoose.connection.db.collection('pokedex').drop();
+      });
+
+      describe('1) - When try to change _id of pokemon', () => {
+        it('1) - Shoud return status 400 and an error', async () => {
+          const response: Response = await chai
+          .request(app.app)
+          .put(`/pokedex/${pokemon.newPokemon._id}`)
+          .set('Authorization', await generateToken())
+          .send(pokemon.pokemonInvalidUpdateInput);
+
+          const { status, body } = response;
+
+          expect(status).to.be.equal(400);
+          expect(body).to.have.property('error');
+          expect(body.error).to.equal('_id is immutable');
+        });
+      });
+
+      describe('2 - When try to change with non existent _id', () => {
+        it('1) Should return status 404 and an error', async () => {
+          const response: Response = await chai
+          .request(app.app)
+          .put(`/pokedex/9999`)
+          .set('Authorization', await generateToken())
+          .send(pokemon.pokemonInvalidUpdateInput);
+
+          const { status, body } = response;
+
+          expect(status).to.be.equal(404);
+          expect(body).to.have.property('error');
+          expect(body.error).to.equal('Oh noes, there\'s nothing in here! Page not found!');
+        });
+      });
+    });
+  });
+});
