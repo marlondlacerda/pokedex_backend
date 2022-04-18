@@ -122,4 +122,21 @@ describe('Unit Test - Pokedex Service', () => {
       expect(result).to.deep.equal(pokemonUpdateInput)
     });
   });
+
+  describe('4) - Testing Delete of Pokedex Service', () => {
+    before(() => {
+      Sinon.stub(pokedexService.model, 'delete').resolves(pokemonUpdateInput)
+    })
+
+    after(() => {
+      Sinon.restore();
+    });
+
+    it('1) - Should return an Update Pokemon', async () => {
+      const result = await pokedexService.delete(pokemonInput._id)
+
+      expect(result).to.be.an('object')
+      expect(result).to.deep.equal(pokemonUpdateInput)
+    });
+  });
 })
