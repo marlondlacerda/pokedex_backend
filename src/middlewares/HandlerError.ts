@@ -37,7 +37,7 @@ class HandlerError {
     this.status = errorMap[err.name];
     /* istanbul ignore if */
     if (!this.status) return next(err);
-    // aaa
+
     res.status(this.status).json({ error: err.message });
   }
 }
