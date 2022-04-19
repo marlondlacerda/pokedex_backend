@@ -30,9 +30,7 @@ class LoginService extends Service<UserLogin> {
 
     const { username } = result;
 
-    const token = this.authenticate.generateToken({ username });
-
-    return token;
+    return this.authenticate.generateToken({ username });
   };
 }
 

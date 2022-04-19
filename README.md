@@ -39,6 +39,8 @@ A Api contempla os 151 primeiros pokemons e somente quem estiver registrado no b
 
 Para construção dessa API, foi usado Docker, Typescript, Mongoose para conversar com o banco MongoDB e NodeJS com Express! (As demais Librarys serão citadas abaixo)
 
+<b>Esse projeto está 100% testado com Testes UNITÁRIOS e Testes de INTEGRAÇÃO</b><br>
+<img src="coverage.png" width="300">
 <br>
 
 ## Tecnologias

@@ -39,7 +39,7 @@ class Authenticator {
 
   readonly authMiddleware = async (
     req: Request<unknown>, 
-    res: Response,
+    _res: Response,
     next: NextFunction,
   ) => {
     const { authorization } = req.headers;
