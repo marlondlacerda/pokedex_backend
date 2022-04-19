@@ -17,7 +17,7 @@ class HandlerError {
 
   public handle(
     err: Error,
-    req: Request,
+    _req: Request,
     res: Response, 
     next: NextFunction,
   ) {
