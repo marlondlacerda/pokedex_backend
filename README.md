@@ -84,7 +84,7 @@ ou
 npm install
 
 # crie um arquivo ".env" para configurar as variáveis de ambiente e siga o exemplo do arquivo 
-".env.example" para definir as suas configurações
+# ".env.example" para definir as suas configurações
 
 # Rode o aplicação
 yarn start
@@ -102,7 +102,7 @@ npm start
 PARA GERAR A SENHA CRIPTOGRAFADA UTILIZE: https://bcrypt-generator.com/
 
 # Utilize uma ferramenta para realizar as requições de API seja elas:
-SoapUI, Postman, Insomnia etc
+# SoapUI, Postman, Insomnia etc
 
 #Vá na rota /login usando o método post e utilize o seguinte corpo para gerar o token:
 
@@ -112,7 +112,7 @@ SoapUI, Postman, Insomnia etc
 }
 
 #No endpoint "/pokedex" insira o token gerado no header das requisições:
-"Post, Put, Patch e Delete".
+# "Post, Put, Patch e Delete".
 ```
 
 <br>
