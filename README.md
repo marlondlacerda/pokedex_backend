@@ -47,7 +47,7 @@ Para construção dessa API, foi usado Docker, Typescript, Mongoose para convers
 
 Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 
-## Principais:
+### Principais:
 - [TypeScript](https://www.typescriptlang.org/)
 - [Docker](https://docker.io/)
 - [Express](https://expressjs.com/pt-br/)
