@@ -1,4 +1,4 @@
-import { JwtPayload, sign, verify } from 'jsonwebtoken';
+import { JsonWebTokenError, JwtPayload, sign, verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import createError from '../utils';
 
@@ -16,6 +16,15 @@ declare module 'express-serve-static-core' {
 export interface Payload {
   username: string | undefined
 }
+
+interface ErrorMap {
+  [key: string]: string;
+}
+
+const errorMap: ErrorMap = {
+  JsonWebTokenError: 'Invalid token',
+  TokenExpiredError: 'Token expired',
+};
 
 class Authenticator {
   private secret: string;
@@ -37,8 +46,8 @@ class Authenticator {
   private verifyToken = (token: string): JwtPayload => 
     verify(token, this.secret, { algorithms: ['HS256'] }) as JwtPayload;
 
-  readonly authMiddleware = async (
-    req: Request<unknown>, 
+  readonly verify = async (
+    req: Request<unknown>,
     _res: Response,
     next: NextFunction,
   ) => {
@@ -46,11 +55,18 @@ class Authenticator {
 
     if (!authorization) throw createError('unauthorized', 'No token provided');
 
-    const { userName } = this.verifyToken(authorization);
+    try {
+      const payload = this.verifyToken(authorization);
 
-    req.userName = userName;
+      req.userName = payload.username;
 
-    return next();
+      next();
+    } catch (err: JsonWebTokenError | unknown) {
+      /* istanbul ignore next */
+      if (err instanceof JsonWebTokenError) {
+        throw createError('unauthorized', errorMap[err.name]);
+      } 
+    }
   };
 }
 
