@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { LoginValidation } from '../validations';
+import { Validation } from '../middlewares';
+import { UserLoginSchema } from '../schemas';
 import { LoginController } from '../controllers';
 
 class LoginRouter {
@@ -11,10 +12,14 @@ class LoginRouter {
 
   public addRoute(
     controller: LoginController,
-    validation: LoginValidation,
+    validation: Validation,
     route: string = controller.route,
   ) {
-    this.router.post(route, validation.bodyLogin, controller.handle);
+    this.router.post(
+      route,
+      validation.body(UserLoginSchema), 
+      controller.handle,
+    );
   }
 }
 
