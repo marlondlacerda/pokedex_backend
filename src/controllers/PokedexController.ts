@@ -1,8 +1,8 @@
-import { PokedexWithID } from '../schemas';
+import { Pokedex } from '../schemas';
 import Controller from './Controller';
 import { PokedexService } from '../services';
 
-class PokedexController extends Controller<PokedexWithID> {
+class PokedexController extends Controller<Pokedex> {
   private $route: string;
 
   constructor(

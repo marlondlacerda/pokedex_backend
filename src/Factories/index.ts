@@ -1,2 +1,2 @@
 export { default as LoginFactory } from './LoginFactory';
-export { default as PokedexFactory } from './pokedexFactory';
+export { default as PokedexFactory } from './PokedexFactory';

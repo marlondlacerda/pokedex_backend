@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { LoginService } from '../services';
 import { UserLogin } from '../schemas';
+import { LoginService } from '../services';
 import Controller from './Controller';
 
 class LoginController extends Controller<UserLogin> {

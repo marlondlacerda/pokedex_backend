@@ -66,7 +66,7 @@ describe('Integration Test - Endpoint "/pokedex"', () => {
     });
   });
 
-  describe('2) -When use the method .post to add a new pokemon', () => {
+  describe('2) - When use the method .post to add a new pokemon', () => {
     it('1) - Shoud return status 201 and a new pokemon', async () => {
       const response: Response = await chai
         .request(app.app)
