@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { PokedexValidation } from '../validations';
 import { Controller } from '../controllers';
-import { Authenticator } from '../middlewares';
+import { Authenticator, Validation } from '../middlewares';
+import { partialPokedexSchema, pokedexWithIDAndSchema } from '../schemas';
 
 class PokedexRouter<T> {
   public router: Router;
@@ -13,14 +13,14 @@ class PokedexRouter<T> {
   // eslint-disable-next-line max-lines-per-function
   public addRoute(
     controller: Controller<T>,
-    validation: PokedexValidation,
+    validation: Validation,
     authenticator: Authenticator,
     route: string = controller.route,
   ) {
     this.router.post(
       route, 
-      authenticator.authMiddleware,
-      validation.bodyPokedexFull, 
+      authenticator.verify,
+      validation.body(pokedexWithIDAndSchema), 
       controller.create,
     );
 
@@ -30,21 +30,21 @@ class PokedexRouter<T> {
 
     this.router.put(
       `${route}/:id`,
-      authenticator.authMiddleware,
-      validation.bodyPokedexFull,
+      authenticator.verify,
+      validation.body(pokedexWithIDAndSchema),
       controller.update,
     );
 
     this.router.patch(
       `${route}/:id`,
-      authenticator.authMiddleware,
-      validation.bodyPokedexPartial,
+      authenticator.verify,
+      validation.body(partialPokedexSchema),
       controller.partialUpdate,
     );
 
     this.router.delete(
       `${route}/:id`,
-      authenticator.authMiddleware,
+      authenticator.verify,
       controller.delete,
     );
   }
