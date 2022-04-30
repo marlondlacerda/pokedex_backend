@@ -1,5 +1,5 @@
 import App from './app';
-import { LoginFactory, PokedexFactory } from './Factories';
+import { LoginFactory, PokedexFactory } from './factories';
 import { HandlerError } from './middlewares';
 
 const server = new App();
