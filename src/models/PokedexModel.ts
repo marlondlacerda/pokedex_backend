@@ -21,6 +21,14 @@ const pokeSchema = new Schema<PokedexDocument>({
     type: String,
     required: true,
   }],
+  strAg: [{
+    type: String,
+    required: true,
+  }],
+  weakAg: [{
+    type: String,
+    required: true,
+  }],
   height: {
     value: {
       type: Number,
@@ -73,12 +81,56 @@ const pokeSchema = new Schema<PokedexDocument>({
   },
   moves: {
     skill1: {
-      type: String,
-      required: true,
+      name: {
+        type: String,
+        required: true,
+      },
+      type: {
+        type: String,
+        required: true,
+      },
+      category: {
+        type: String,
+        required: true,
+      },
+      pwr: {
+        type: Number,
+        required: true,
+      },
+      acc: {
+        type: Number,
+        required: true,
+      },
+      pp: {
+        type: Number,
+        required: true,
+      },
     },
     skill2: {
-      type: String,
-      required: true,
+      name: {
+        type: String,
+        required: true,
+      },
+      type: {
+        type: String,
+        required: true,
+      },
+      category: {
+        type: String,
+        required: true,
+      },
+      pwr: {
+        type: Number,
+        required: true,
+      },
+      acc: {
+        type: Number,
+        required: true,
+      },
+      pp: {
+        type: Number,
+        required: true,
+      },
     },
   },
   image1: {

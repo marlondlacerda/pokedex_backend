@@ -40,7 +40,7 @@ class Authenticator {
 
   readonly generateToken = (payload: Payload) => sign(payload, this.secret, {
     algorithm: 'HS256',
-    expiresIn: '5d',
+    expiresIn: '1d',
   });
 
   private verifyToken = (token: string): JwtPayload => 

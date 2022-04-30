@@ -1,5 +1,13 @@
 import { z } from 'zod';
-import { numberSchema, stringSchema } from '../utils/createSchema';
+import { numberSchema, stringSchema, skillSchema } from '../utils';
+
+const moveSchema = z.object({
+  skill1: skillSchema('Skill 1'),
+  skill2: skillSchema('Skill 2'),
+}, {
+  required_error: 'Moves are required',
+  invalid_type_error: 'Moves must be an object',
+});
 
 export const pokedexSchema = z.object({
   name: stringSchema('Name', 3, 20),
@@ -12,6 +20,28 @@ export const pokedexSchema = z.object({
     {
       required_error: 'Type is required',
       invalid_type_error: 'Type must be a array',
+    },
+  ),
+
+  strAg: z.array(
+    stringSchema('strAg', 3, 20)
+      .nonempty({
+        message: 'strAg must be a non-empty array',
+      }),
+    {
+      required_error: 'strAg is required',
+      invalid_type_error: 'strAg must be a array',
+    },
+  ),
+
+  weakAg: z.array(
+    stringSchema('WeakAg', 3, 20)
+      .nonempty({
+        message: 'WeakAg must be a non-empty array',
+      }),
+    {
+      required_error: 'WeakAg is required',
+      invalid_type_error: 'WeakAg must be a array',
     },
   ),
 
@@ -45,14 +75,7 @@ export const pokedexSchema = z.object({
     invalid_type_error: 'Base stats must be an object',
   }),
 
-  moves: z
-    .object({
-      skill1: stringSchema('Skill 1', 3, 20),
-      skill2: stringSchema('Skill 2', 3, 20),
-    }, {
-      required_error: 'Moves are required',
-      invalid_type_error: 'Moves must be an object',
-    }),
+  moves: moveSchema,
 
   image1: stringSchema('Image 1', 3, 200).url({
     message: 'Image 1 must be a valid URL',
