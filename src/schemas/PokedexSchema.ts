@@ -1,6 +1,10 @@
 import { z } from 'zod';
 import { numberSchema, stringSchema } from '../utils/createSchema';
 
+const testSchema = z.object({
+  id: numberSchema('id'),
+});
+
 export const pokedexSchema = z.object({
   name: stringSchema('Name', 3, 20),
 
@@ -12,6 +16,28 @@ export const pokedexSchema = z.object({
     {
       required_error: 'Type is required',
       invalid_type_error: 'Type must be a array',
+    },
+  ),
+
+  strAg: z.array(
+    stringSchema('strAg', 3, 20)
+      .nonempty({
+        message: 'strAg must be a non-empty array',
+      }),
+    {
+      required_error: 'strAg is required',
+      invalid_type_error: 'strAg must be a array',
+    },
+  ),
+
+  weakAg: z.array(
+    stringSchema('WeakAg', 3, 20)
+      .nonempty({
+        message: 'WeakAg must be a non-empty array',
+      }),
+    {
+      required_error: 'WeakAg is required',
+      invalid_type_error: 'WeakAg must be a array',
     },
   ),
 
@@ -63,9 +89,9 @@ export const pokedexSchema = z.object({
   }),
 });
 
-export const pokedexWithIDAndSchema = pokedexSchema.extend({
-  _id: numberSchema('_id'),
-});
+export const pokedexWithIDAndSchema = pokedexSchema.extend(
+  testSchema,
+);
 
 export const partialPokedexSchema = pokedexSchema.partial();
 
