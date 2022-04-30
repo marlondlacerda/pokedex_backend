@@ -1,10 +1,6 @@
 import { z } from 'zod';
 import { numberSchema, stringSchema } from '../utils/createSchema';
 
-const testSchema = z.object({
-  id: numberSchema('id'),
-});
-
 export const pokedexSchema = z.object({
   name: stringSchema('Name', 3, 20),
 
@@ -89,9 +85,9 @@ export const pokedexSchema = z.object({
   }),
 });
 
-export const pokedexWithIDAndSchema = pokedexSchema.extend(
-  testSchema,
-);
+export const pokedexWithIDAndSchema = pokedexSchema.extend({
+  _id: numberSchema('_id'),
+});
 
 export const partialPokedexSchema = pokedexSchema.partial();
 

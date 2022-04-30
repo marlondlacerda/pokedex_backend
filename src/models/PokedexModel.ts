@@ -21,6 +21,14 @@ const pokeSchema = new Schema<PokedexDocument>({
     type: String,
     required: true,
   }],
+  strAg: [{
+    type: String,
+    required: true,
+  }],
+  weakAg: [{
+    type: String,
+    required: true,
+  }],
   height: {
     value: {
       type: Number,
